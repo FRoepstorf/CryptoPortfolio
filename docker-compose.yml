@@ -10,7 +10,7 @@ services:
     depends_on:
       - php
     environment:
-      HANDLER: index.php
+      HANDLER: public/index.php
   php:
     build:
       dockerfile: docker/php/Dockerfile
