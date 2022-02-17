@@ -1,0 +1,20 @@
+version: "3.5"
+
+services:
+  web:
+    image: bref/fpm-dev-gateway
+    ports:
+      - '8000:80'
+    volumes:
+      - .:/var/task
+    depends_on:
+      - php
+    environment:
+      HANDLER: index.php
+  php:
+    build:
+      dockerfile: docker/php/Dockerfile
+      context: .
+      target: dev
+    volumes:
+      - .:/var/task
