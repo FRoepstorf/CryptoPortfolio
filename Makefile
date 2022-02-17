@@ -3,3 +3,6 @@ up:
 
 stop:
 	docker-compose stop
+
+shell:
+	docker-compose run --rm php bash

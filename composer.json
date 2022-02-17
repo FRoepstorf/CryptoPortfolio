@@ -1,0 +1,10 @@
+{
+    "name": "froepstorf/cryptoportfolio",
+    "type": "project",
+    "autoload": {
+        "psr-4": {
+            "Froepstorf\\Cryptoportfolio\\": "src/"
+        }
+    },
+    "require": {}
+}
