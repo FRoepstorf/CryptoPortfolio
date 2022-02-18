@@ -18,7 +18,7 @@ services:
       target: dev
     volumes:
       - .:/var/task
-      - ./docker/php/xdebug.ini:/opt/bref/etc/php/conf.d/php.ini
+      - ./docker/php/xdebug.ini:/opt/bref/etc/php/conf.d/xdebug.ini
     env_file:
       - .env
 
