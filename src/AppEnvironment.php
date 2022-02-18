@@ -16,4 +16,12 @@ enum AppEnvironment: string
             default => false,
         };
     }
+
+    public function isTest(): bool
+    {
+        return match ($this) {
+            self::TEST => true,
+            default => false
+        };
+    }
 }

@@ -6,7 +6,7 @@ namespace Froepstorf\UnitTest;
 use Froepstorf\Cryptoportfolio\AppEnvironment;
 use PHPUnit\Framework\TestCase;
 
-/** @covers AppEnvironment */
+/** @covers \Froepstorf\Cryptoportfolio\AppEnvironment */
 class AppEnvironmentTest extends TestCase
 {
     public function testIsProdReturnsTrueIfProd(): void
@@ -16,10 +16,23 @@ class AppEnvironmentTest extends TestCase
         $this->assertTrue($appEnvironment->isProd());
     }
 
+    public function testReturnsTrueIfTest(): void
+    {
+        $appEnvironment = AppEnvironment::from('test');
+
+        $this->assertTrue($appEnvironment->isTest());
+    }
+
     /** @dataProvider nonProdEnvProvider  */
     public function testIsFalseIfNotSetToProd(AppEnvironment $appEnvironment): void
     {
         $this->assertFalse($appEnvironment->isProd());
+    }
+
+    /** @dataProvider nonTestEnvProvider */
+    public function testIsFalseIfNotSetToTest(AppEnvironment $appEnvironment): void
+    {
+        $this->assertFalse($appEnvironment->isTest());
     }
 
     private function nonProdEnvProvider(): array
@@ -27,6 +40,14 @@ class AppEnvironmentTest extends TestCase
         return [
             [AppEnvironment::DEV],
             [AppEnvironment::TEST]
+        ];
+    }
+
+    private function nonTestEnvProvider(): array
+    {
+        return [
+            [AppEnvironment::DEV],
+            [AppEnvironment::PROD]
         ];
     }
 }
