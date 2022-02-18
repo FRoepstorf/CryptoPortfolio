@@ -1,6 +1,6 @@
 FROM bref/php-81-fpm as prod
 
-COPY . /var/task
+COPY . $LAMBDA_TASK_ROOT
 
 FROM bref/php-81-fpm-dev as dev
 
