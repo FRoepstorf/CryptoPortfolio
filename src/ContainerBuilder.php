@@ -16,6 +16,7 @@ class ContainerBuilder
     {
         if ($appEnvironment->isProd()) {
             $this->forProd();
+            return $this->builder->build();
         }
 
         return $this->builder->build();
