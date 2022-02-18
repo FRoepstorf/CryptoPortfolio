@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace Froepstorf\Cryptoportfolio\Domain;
 
-class Amount
+final class Amount
 {
     public function __construct(private float $amount)
     {

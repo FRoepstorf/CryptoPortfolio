@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
 
-namespace Froepstorf\Cryptoportfolio\Domain;
+namespace Froepstorf\Cryptoportfolio\Domain\Coins;
 
-class CryptoCoin
+final class CryptoCoin
 {
     public function __construct(private string $coinName)
     {
