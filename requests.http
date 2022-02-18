@@ -3,4 +3,4 @@ GET localhost:8000
 POST localhost:8000/purchase
 Content-Type: application/json
 
-{ "coinName" : "AXS" }
+{ "coinName" : "AXS" , "amount":  20.5, "price": "5500", "currency": "USD" }
