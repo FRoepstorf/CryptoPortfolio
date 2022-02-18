@@ -18,3 +18,5 @@ services:
       target: dev
     volumes:
       - .:/var/task
+    env_file:
+      - .env

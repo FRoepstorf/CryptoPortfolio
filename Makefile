@@ -6,3 +6,6 @@ stop:
 
 shell:
 	docker-compose run --rm php bash
+
+psalm:
+	docker-compose run --rm php ./vendor/bin/psalm
