@@ -1,1 +1,6 @@
 GET localhost:8000
+###
+POST localhost:8000/purchase
+Content-Type: application/json
+
+{ "coinName" : "AXS" }
