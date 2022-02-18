@@ -15,3 +15,6 @@ test:
 
 coverage:
 	docker-compose run --rm -e XDEBUG_MODE=coverage php vendor/bin/phpunit --testsuite all
+
+logs:
+	docker-compose logs -f php
