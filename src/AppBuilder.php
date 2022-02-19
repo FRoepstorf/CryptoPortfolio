@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace Froepstorf\Cryptoportfolio;
 
 use DI\Bridge\Slim\Bridge;
-use Froepstorf\Cryptoportfolio\Controllers\PurchaseController;
+use Froepstorf\Cryptoportfolio\Controllers\Purchase\PurchaseController;
 use Froepstorf\Cryptoportfolio\Controllers\RootController;
 use Slim\App;
 
