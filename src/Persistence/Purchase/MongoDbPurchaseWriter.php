@@ -5,7 +5,11 @@ namespace Froepstorf\Cryptoportfolio\Persistence\Purchase;
 
 use Froepstorf\Cryptoportfolio\Domain\Purchase;
 
-interface PurchaseReader
+class MongoDbPurchaseWriter implements PurchaseWriter
 {
-    public function read(): void;
+
+    public function store(Purchase $purchase): void
+    {
+
+    }
 }

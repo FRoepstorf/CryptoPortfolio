@@ -2,8 +2,14 @@
 declare(strict_types=1);
 
 use Froepstorf\Cryptoportfolio\AppEnvironment;
+use Froepstorf\Cryptoportfolio\Controllers\Purchase\PurchaseRequestMapper;
 use Froepstorf\Cryptoportfolio\Domain\SupportedCurrencies;
 use Froepstorf\Cryptoportfolio\EnvironmentReader;
+use Froepstorf\Cryptoportfolio\Persistence\Purchase\MongoDbPurchaseReader;
+use Froepstorf\Cryptoportfolio\Persistence\Purchase\MongoDbPurchaseWriter;
+use Froepstorf\Cryptoportfolio\Persistence\Purchase\PurchaseReader;
+use Froepstorf\Cryptoportfolio\Persistence\Purchase\PurchaseRepository;
+use Froepstorf\Cryptoportfolio\Persistence\Purchase\PurchaseWriter;
 use Froepstorf\Cryptoportfolio\Services\PurchaseService;
 use Money\Currencies\ISOCurrencies;
 use Money\Formatter\AggregateMoneyFormatter;
@@ -28,8 +34,20 @@ return [
         return $logger;
     },
 
-    PurchaseService::class => function (LoggerInterface $logger, AggregateMoneyFormatter $moneyFormatter): PurchaseService {
-        return new PurchaseService($logger, $moneyFormatter);
+    PurchaseReader::class => function(): PurchaseReader {
+        return new MongoDbPurchaseReader();
+    },
+
+    PurchaseWriter::class => function (): PurchaseWriter {
+        return new MongoDbPurchaseWriter();
+    },
+
+    PurchaseService::class => function (
+        LoggerInterface $logger,
+        AggregateMoneyFormatter $moneyFormatter,
+        PurchaseRepository $purchaseRepository
+    ): PurchaseService {
+        return new PurchaseService($logger, $moneyFormatter, $purchaseRepository);
     },
 
     NumberFormatter::class => function(): NumberFormatter {
