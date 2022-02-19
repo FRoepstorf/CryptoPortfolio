@@ -15,6 +15,6 @@ class AmountTest extends TestCase
     {
         $amount = new Amount(self::AMOUNT);
 
-        $this->assertSame(self::AMOUNT, $amount->asFloat());
+        $this->assertSame(self::AMOUNT, $amount->value);
     }
 }

@@ -6,10 +6,11 @@ namespace Froepstorf\Acceptance;
 use Fig\Http\Message\StatusCodeInterface;
 use Froepstorf\Cryptoportfolio\AppBuilder;
 use Froepstorf\Cryptoportfolio\ContainerBuilder;
+use Froepstorf\Cryptoportfolio\Domain\SupportedCurrencies;
 use PHPUnit\Framework\TestCase;
 use Slim\Psr7\Factory\ServerRequestFactory;
 
-/** @covers \Froepstorf\Cryptoportfolio\Controllers\PurchaseController */
+/** @covers \Froepstorf\Cryptoportfolio\Controllers\Purchase\PurchaseController */
 class PurchaseControllerTest extends TestCase
 {
     public function testCanRegisterPurchase(): void
@@ -19,7 +20,10 @@ class PurchaseControllerTest extends TestCase
 
         ]);
         $payload = [
-            'coinName' => 'AXS'
+            'coinName' => 'AXS',
+            'amount' => 20.5,
+            'price' => '50000',
+            'currency' => SupportedCurrencies::USD->value
         ];
         $jsonPayload = json_encode($payload, JSON_THROW_ON_ERROR);
         $request->getBody()->write($jsonPayload);

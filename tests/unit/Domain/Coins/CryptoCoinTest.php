@@ -14,6 +14,6 @@ class CryptoCoinTest extends TestCase
     {
         $cryptoCoin = new CryptoCoin(SupportedCryptoCoins::AXS->value);
 
-        $this->assertSame(SupportedCryptoCoins::AXS->value, $cryptoCoin->getName());
+        $this->assertSame(SupportedCryptoCoins::AXS->value, $cryptoCoin->coinName);
     }
 }

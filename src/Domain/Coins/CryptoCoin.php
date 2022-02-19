@@ -5,12 +5,7 @@ namespace Froepstorf\Cryptoportfolio\Domain\Coins;
 
 final class CryptoCoin
 {
-    public function __construct(private string $coinName)
+    public function __construct(public readonly string $coinName)
     {
-    }
-
-    public function getName(): string
-    {
-        return $this->coinName;
     }
 }

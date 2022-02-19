@@ -5,12 +5,7 @@ namespace Froepstorf\Cryptoportfolio\Domain;
 
 final class Amount
 {
-    public function __construct(private float $amount)
+    public function __construct(public readonly float $value)
     {
-    }
-
-    public function asFloat(): float
-    {
-        return $this->amount;
     }
 }

@@ -31,16 +31,16 @@ class PurchaseTest extends TestCase
 
     public function testCanGetCryptoCoin(): void
     {
-        $this->assertSame($this->cryptoCoin, $this->purchase->getCryptoCoin());
+        $this->assertSame($this->cryptoCoin, $this->purchase->cryptoCoin);
     }
 
     public function testCanGetAmount(): void
     {
-        $this->assertSame($this->amount, $this->purchase->getAmount());
+        $this->assertSame($this->amount, $this->purchase->amount);
     }
 
     public function testCanGetPrice(): void
     {
-        $this->assertSame($this->price, $this->purchase->getPrice());
+        $this->assertSame($this->price, $this->purchase->price);
     }
 }
