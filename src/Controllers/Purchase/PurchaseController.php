@@ -13,7 +13,7 @@ use Slim\Psr7\Response;
 
 class PurchaseController extends AbstractController
 {
-    #[Pure] public function __construct(
+    public function __construct(
         LoggerInterface $logger,
         private PurchaseService $purchaseService,
         private PurchaseRequestMapper $purchaseRequestMapper

@@ -14,24 +14,27 @@ use Slim\Psr7\Request;
 
 class PurchaseRequestMapper
 {
-    private array $parsedBody;
-
     public function mapPurchase(Request $request): Purchase
     {
         $this->validateRequest($request);
-        $this->parsedBody = $request->getParsedBody();
+        /** @psalm-var array<string, non-empty-string> $parsedBody */
+        $parsedBody = $request->getParsedBody();
         return new Purchase(
-            new CryptoCoin($this->parsedBody[PurchaseSupportedKey::COIN_NAME_KEY->value]),
-            new Amount($this->parsedBody[PurchaseSupportedKey::AMOUNT_KEY->value]),
-            $this->createPrice()
+            cryptoCoin:  new CryptoCoin($parsedBody[PurchaseSupportedKey::COIN_NAME_KEY->value]),
+            amount:  new Amount((float)$parsedBody[PurchaseSupportedKey::AMOUNT_KEY->value]),
+            price:  $this->createPrice($parsedBody)
         );
     }
 
-    private function createPrice(): Price
+    /**
+     * @psalm-param  array<string, non-empty-string> $parsedBody
+     * @psalm-suppress ArgumentTypeCoercion
+     */
+    private function createPrice(array $parsedBody): Price
     {
         $money = new Money(
-            $this->parsedBody[PurchaseSupportedKey::PRICE_KEY->value],
-            new Currency($this->parsedBody[PurchaseSupportedKey::CURRENCY_KEY->value])
+            amount: $parsedBody[PurchaseSupportedKey::PRICE_KEY->value],
+            currency: new Currency($parsedBody[PurchaseSupportedKey::CURRENCY_KEY->value])
         );
 
         return new Price($money);
@@ -39,6 +42,7 @@ class PurchaseRequestMapper
 
     private function validateRequest(Request $request): void
     {
+        /** @psalm-var array<string, non-empty-string> $parsedBody */
         $parsedBody = $request->getParsedBody();
         ParsedBodyValidator::ensuresParsedBodyIsArray($parsedBody);
         ParsedBodyValidator::ensureKeysAreSet($parsedBody, PurchaseSupportedKey::getKeyValues());

@@ -7,5 +7,5 @@ use Froepstorf\Cryptoportfolio\Domain\Purchase;
 
 interface PurchaseWriter
 {
-    public function store(Purchase $purchase);
+    public function store(Purchase $purchase): void;
 }

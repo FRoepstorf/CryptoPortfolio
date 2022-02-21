@@ -25,6 +25,7 @@
         "monolog/monolog": "^2.3",
         "mongodb/mongodb": "^1.11",
         "moneyphp/money": "^4.0",
-        "ext-intl": "*"
+        "ext-intl": "*",
+        "ramsey/uuid": "^4.2"
     }
 }

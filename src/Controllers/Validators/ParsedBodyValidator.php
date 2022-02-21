@@ -15,8 +15,9 @@ class ParsedBodyValidator
 
     public static function ensureKeysAreSet(array $parsedBody, ValidatableBodyKeys $validatableBodyKeys): void
     {
+        /** @psalm-var string $keyToValidate */
         foreach ($validatableBodyKeys->keys as $keyToValidate) {
-            array_key_exists($keyToValidate, $parsedBody) ?? throw new ExpectedKeyIsNotSetException();
+            array_key_exists($keyToValidate, $parsedBody) ?: throw new ExpectedKeyIsNotSetException();
         }
     }
 }
