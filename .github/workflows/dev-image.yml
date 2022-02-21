@@ -1,9 +1,6 @@
 name: Dev image
 
-on:
-  push:
-    paths:
-      - 'docker'
+on: push
 
 jobs:
   build:
