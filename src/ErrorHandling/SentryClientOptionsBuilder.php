@@ -27,6 +27,7 @@ final class SentryClientOptionsBuilder
 
     public function build(): Options
     {
+        /** @psalm-suppress MixedArgumentTypeCoercion */
         return new Options($this->options);
     }
 }

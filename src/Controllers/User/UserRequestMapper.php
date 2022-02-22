@@ -11,6 +11,7 @@ class UserRequestMapper
 {
     public function mapCreateUserRequest(Request $request): User
     {
+        /** @psalm-var array<string, non-empty-string> $parsedBody */
         $parsedBody = $request->getParsedBody();
         ParsedBodyValidator::ensuresParsedBodyIsArray($parsedBody);
         ParsedBodyValidator::ensureKeysAreSet($parsedBody, CreateUserSupportedKey::getKeyValues());

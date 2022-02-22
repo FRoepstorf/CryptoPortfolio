@@ -14,7 +14,8 @@
     },
     "require-dev": {
         "vimeo/psalm": "^4.20",
-        "phpunit/phpunit": "^9.5"
+        "phpunit/phpunit": "^9.5",
+        "lctrs/psalm-psr-container-plugin": "^1.7"
     },
     "require": {
         "bref/bref": "^1.5",

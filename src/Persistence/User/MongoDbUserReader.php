@@ -28,6 +28,7 @@ class MongoDbUserReader implements UserReader
 
     public function getUserIdFromUser(User $user): UserId
     {
+        /** @psalm-var array<array-key, ObjectId>  $result */
         $result = $this->collection->findOne([
             'userName' => $user->name
         ],
