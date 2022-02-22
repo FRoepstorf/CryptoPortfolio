@@ -64,9 +64,10 @@ return [
     PurchaseService::class => function (
         LoggerInterface $logger,
         AggregateMoneyFormatter $moneyFormatter,
-        PurchaseRepository $purchaseRepository
+        PurchaseRepository $purchaseRepository,
+        UserService $userService
     ): PurchaseService {
-        return new PurchaseService($logger, $moneyFormatter, $purchaseRepository);
+        return new PurchaseService($logger, $moneyFormatter, $purchaseRepository, $userService);
     },
 
     NumberFormatter::class => function(): NumberFormatter {
@@ -105,9 +106,10 @@ return [
     ErrorHandlerMiddleware::class => function(
         ClientInterface $client,
         Scope $scope,
-        LoggerInterface $logger
+        LoggerInterface $logger,
+        AppEnvironment $appEnvironment
     ): ErrorHandlerMiddleware {
-        return new ErrorHandlerMiddleware($client, $scope, $logger);
+        return new ErrorHandlerMiddleware($client, $scope, $logger, $appEnvironment);
     },
 
     ClientInterface::class => function(AppEnvironment $appEnvironment): ClientInterface{

@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Froepstorf\Acceptance;
+namespace Froepstorf\AcceptanceTest;
 
 use Fig\Http\Message\StatusCodeInterface;
 use Froepstorf\Cryptoportfolio\AppBuilder;
@@ -23,7 +23,8 @@ class PurchaseControllerTest extends TestCase
             'coinName' => 'AXS',
             'amount' => 20.5,
             'price' => '50000',
-            'currency' => SupportedCurrencies::USD->value
+            'currency' => SupportedCurrencies::USD->value,
+            'userName' => 'test'
         ];
         $jsonPayload = json_encode($payload, JSON_THROW_ON_ERROR);
         $request->getBody()->write($jsonPayload);

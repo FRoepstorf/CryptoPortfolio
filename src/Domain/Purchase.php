@@ -10,7 +10,8 @@ final class Purchase
     public function __construct(
         public readonly CryptoCoin $cryptoCoin,
         public readonly Amount $amount,
-        public readonly Price $price
+        public readonly Price $price,
+        public readonly User $user
     )
     {
     }

@@ -6,6 +6,7 @@ use Froepstorf\Cryptoportfolio\Domain\Amount;
 use Froepstorf\Cryptoportfolio\Domain\Coins\CryptoCoin;
 use Froepstorf\Cryptoportfolio\Domain\Price;
 use Froepstorf\Cryptoportfolio\Domain\Purchase;
+use Froepstorf\Cryptoportfolio\Domain\User;
 use Money\Money;
 use PHPUnit\Framework\TestCase;
 
@@ -18,6 +19,8 @@ class PurchaseTest extends TestCase
 
     private Price $price;
 
+    private User $user;
+
     private Purchase $purchase;
 
     protected function setUp(): void
@@ -25,8 +28,9 @@ class PurchaseTest extends TestCase
         $this->cryptoCoin = new CryptoCoin('AXS');
         $this->amount = new Amount(20.5);
         $this->price = new Price(Money::USD(500));
+        $this->user = new User('test');
 
-        $this->purchase = new Purchase($this->cryptoCoin, $this->amount, $this->price);
+        $this->purchase = new Purchase($this->cryptoCoin, $this->amount, $this->price, $this->user);
     }
 
     public function testCanGetCryptoCoin(): void
@@ -42,5 +46,10 @@ class PurchaseTest extends TestCase
     public function testCanGetPrice(): void
     {
         $this->assertSame($this->price, $this->purchase->price);
+    }
+
+    public function testCanGetUser(): void
+    {
+        $this->assertSame($this->user, $this->purchase->user);
     }
 }

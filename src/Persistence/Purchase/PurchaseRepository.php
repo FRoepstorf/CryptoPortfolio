@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace Froepstorf\Cryptoportfolio\Persistence\Purchase;
 
 use Froepstorf\Cryptoportfolio\Domain\Purchase;
+use Froepstorf\Cryptoportfolio\Persistence\User\UserId;
 
 class PurchaseRepository
 {
@@ -11,9 +12,9 @@ class PurchaseRepository
     {
     }
 
-    public function store(Purchase $purchase): void
+    public function store(Purchase $purchase, UserId $userId): void
     {
-        $this->purchaseWriter->store($purchase);
+        $this->purchaseWriter->store($purchase, $userId);
     }
 
     public function read(): void

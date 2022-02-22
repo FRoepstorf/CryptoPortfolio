@@ -1,4 +1,9 @@
 POST localhost:8000/purchase
 Content-Type: application/json
 
-{ "coinName" : "AXS" , "amount":  20.5, "price": "5500", "currency": "USD" }
+{ "coinName" : "AXS" , "amount":  20.5, "price": "5500", "currency": "USD", "userName": "test" }
+###
+POST localhost:8000/user
+Content-Type: application/json
+
+{"userName":  "test"}

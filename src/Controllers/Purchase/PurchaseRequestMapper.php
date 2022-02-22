@@ -8,6 +8,7 @@ use Froepstorf\Cryptoportfolio\Domain\Amount;
 use Froepstorf\Cryptoportfolio\Domain\Coins\CryptoCoin;
 use Froepstorf\Cryptoportfolio\Domain\Price;
 use Froepstorf\Cryptoportfolio\Domain\Purchase;
+use Froepstorf\Cryptoportfolio\Domain\User;
 use Money\Currency;
 use Money\Money;
 use Slim\Psr7\Request;
@@ -22,7 +23,8 @@ class PurchaseRequestMapper
         return new Purchase(
             cryptoCoin:  new CryptoCoin($parsedBody[PurchaseSupportedKey::COIN_NAME_KEY->value]),
             amount:  new Amount((float)$parsedBody[PurchaseSupportedKey::AMOUNT_KEY->value]),
-            price:  $this->createPrice($parsedBody)
+            price:  $this->createPrice($parsedBody),
+            user: new User($parsedBody[PurchaseSupportedKey::USER_KEY->value])
         );
     }
 

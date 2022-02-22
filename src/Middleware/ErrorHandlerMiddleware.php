@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace Froepstorf\Cryptoportfolio\Middleware;
 
 use Fig\Http\Message\StatusCodeInterface;
+use Froepstorf\Cryptoportfolio\AppEnvironment;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
@@ -19,7 +20,8 @@ class ErrorHandlerMiddleware implements MiddlewareInterface
     public function __construct(
         private readonly ClientInterface $sentryClient,
         private readonly Scope $scope,
-        private readonly LoggerInterface $logger
+        private readonly LoggerInterface $logger,
+        private readonly AppEnvironment $appEnvironment
     )
     {
     }
@@ -32,9 +34,12 @@ class ErrorHandlerMiddleware implements MiddlewareInterface
             $this->logger->error(
                 sprintf('Exception "%s" was thrown with message "%s"', get_class($throwable), $throwable->getMessage())
             );
+            if ($this->appEnvironment->isProd()) {
+                $this->sentryClient->captureException($throwable, $this->scope);
+                return new Response(StatusCodeInterface::STATUS_INTERNAL_SERVER_ERROR);
+            }
 
-            $this->sentryClient->captureException($throwable, $this->scope);
-            return new Response(StatusCodeInterface::STATUS_INTERNAL_SERVER_ERROR);
+            throw $throwable;
         }
     }
 }
