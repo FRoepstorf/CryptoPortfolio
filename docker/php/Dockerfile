@@ -14,3 +14,7 @@ COPY --from=bref/extra-mongodb-php-81 /opt /opt
 COPY --from=composer:latest /usr/bin/composer /opt/bin/composer
 
 COPY ./docker/php/intl.ini /opt/bref/etc/php/conf.d/intl.ini
+
+FROM dev as ci
+
+RUN yum install tar -y
