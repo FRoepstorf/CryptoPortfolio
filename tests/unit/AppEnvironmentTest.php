@@ -11,16 +11,24 @@ class AppEnvironmentTest extends TestCase
 {
     public function testIsProdReturnsTrueIfProd(): void
     {
-        $appEnvironment = AppEnvironment::from('prod');
-
-        $this->assertTrue($appEnvironment->isProd());
+        $this->assertTrue(AppEnvironment::PROD->isProd());
     }
 
     public function testReturnsTrueIfTest(): void
     {
-        $appEnvironment = AppEnvironment::from('test');
 
-        $this->assertTrue($appEnvironment->isTest());
+        $this->assertTrue(AppEnvironment::TEST->isTest());
+    }
+
+    public function testReturnsFalseIfSetToProd(): void
+    {
+        $this->assertFalse(AppEnvironment::PROD->isTestOrDev());
+    }
+
+    /** @dataProvider nonProdEnvProvider */
+    public function testReturnsTrueIfDevOrTest(AppEnvironment $appEnvironment): void
+    {
+        $this->assertTrue($appEnvironment->isTestOrDev());
     }
 
     /** @dataProvider nonProdEnvProvider  */

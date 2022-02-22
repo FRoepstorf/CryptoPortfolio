@@ -24,4 +24,12 @@ enum AppEnvironment: string
             default => false
         };
     }
+
+    public function isTestOrDev(): bool
+    {
+        return match ($this) {
+            self::TEST, self::DEV => true,
+            default => false
+        };
+    }
 }
