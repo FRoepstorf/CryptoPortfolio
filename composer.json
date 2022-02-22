@@ -26,6 +26,8 @@
         "mongodb/mongodb": "^1.11",
         "moneyphp/money": "^4.0",
         "ext-intl": "*",
-        "ramsey/uuid": "^4.2"
+        "ramsey/uuid": "^4.2",
+        "ext-mongodb": "*",
+        "sentry/sdk": "^3.1"
     }
 }

@@ -22,5 +22,6 @@
     </testsuites>
     <php>
         <env name="APP_ENVIRONMENT" value="test" force="true"/>
+        <env name="SENTRY_DSN" value="StubbedDsn" force="true"/>
     </php>
 </phpunit>
