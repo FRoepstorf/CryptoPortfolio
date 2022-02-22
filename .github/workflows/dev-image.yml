@@ -3,7 +3,7 @@ name: Dev image
 on: push
 
 jobs:
-  build:
+  buildCiImage:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -47,6 +47,7 @@ jobs:
           mv /tmp/.buildx-cache-new /tmp/.buildx-cache
 
   codeQuality:
+    needs: [buildCiImage]
     runs-on: ubuntu-latest
     container: vollpo/cryptoportfolio:ci
     steps:
