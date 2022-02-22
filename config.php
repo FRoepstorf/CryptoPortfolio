@@ -34,12 +34,16 @@ return [
         return $logger;
     },
 
-    PurchaseReader::class => function(): PurchaseReader {
-        return new MongoDbPurchaseReader();
+    \MongoDB\Client::class => function (): \MongoDB\Client {
+        return new \MongoDB\Client(EnvironmentReader::getMongoDsn());
     },
 
-    PurchaseWriter::class => function (): PurchaseWriter {
-        return new MongoDbPurchaseWriter();
+    PurchaseReader::class => function(\MongoDB\Client $mongoClient): PurchaseReader {
+        return new MongoDbPurchaseReader($mongoClient);
+    },
+
+    PurchaseWriter::class => function (\MongoDB\Client $mongoClient): PurchaseWriter {
+        return new MongoDbPurchaseWriter($mongoClient);
     },
 
     PurchaseService::class => function (

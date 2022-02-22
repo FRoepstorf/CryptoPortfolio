@@ -12,6 +12,11 @@ class EnvironmentReader
         return AppEnvironment::from(self::readFromEnvironment('APP_ENVIRONMENT'));
     }
 
+    public static function getMongoDsn(): string
+    {
+        return self::readFromEnvironment('MONGO_DSN');
+    }
+
     private static function readFromEnvironment(string $key): string
     {
         $envVariable = getenv($key);
