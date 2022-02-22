@@ -23,6 +23,6 @@
     <php>
         <env name="APP_ENVIRONMENT" value="test" force="true"/>
         <env name="SENTRY_DSN" value="StubbedDsn" force="true"/>
-        <env name="MONGO_DSN" value="fixMe" force="true"/>
+        <env name="MONGO_DSN" value="mongodb://root:root@mongodb:27017" force="true"/>
     </php>
 </phpunit>
