@@ -33,4 +33,15 @@ class EnvironmentReaderTest extends TestCase
 
         EnvironmentReader::getAppEnvironment();
     }
+
+    public function testCanGetSentryDsn(): void
+    {
+        $this->assertSame('StubbedDsn', EnvironmentReader::getSentryDsn());
+    }
+
+    public function testCanGetMongoDsn(): void
+    {
+        // TODO will break in CI when connecting outside of docker-compose dns
+        $this->assertSame('mongodb://root:root@mongodb:27017', EnvironmentReader::getMongoDsn());
+    }
 }

@@ -17,6 +17,11 @@ class EnvironmentReader
         return self::readFromEnvironment('MONGO_DSN');
     }
 
+    public static function getSentryDsn(): string
+    {
+        return self::readFromEnvironment('SENTRY_DSN');
+    }
+
     private static function readFromEnvironment(string $key): string
     {
         $envVariable = getenv($key);
