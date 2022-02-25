@@ -12,6 +12,10 @@ use Froepstorf\Cryptoportfolio\Persistence\Purchase\PurchaseRepository;
 use Froepstorf\Cryptoportfolio\Persistence\User\UserId;
 use Froepstorf\Cryptoportfolio\Services\PurchaseService;
 use Froepstorf\Cryptoportfolio\Services\UserService;
+use Froepstorf\Fixtures\AmountProvider;
+use Froepstorf\Fixtures\CryptoCoinProvider;
+use Froepstorf\Fixtures\PriceProvider;
+use Froepstorf\Fixtures\UserProvider;
 use Money\Currencies\ISOCurrencies;
 use Money\Formatter\AggregateMoneyFormatter;
 use Money\Formatter\IntlMoneyFormatter;
@@ -24,11 +28,6 @@ use Psr\Log\LoggerInterface;
 /** @covers \Froepstorf\Cryptoportfolio\Services\PurchaseService */
 class PurchaseServiceTest extends TestCase
 {
-    private const COIN_NAME = 'AXS';
-    private const AMOUNT = 20.5;
-    private const FIVE_THOUSAND_CENTS = 5500;
-    private const USER_NAME = 'test';
-
     private PurchaseRepository|MockObject $purchaseRepositoryMock;
 
     private LoggerInterface|MockObject $loggerMock;
@@ -36,8 +35,6 @@ class PurchaseServiceTest extends TestCase
     private UserService|MockObject $userServiceMock;
 
     private AggregateMoneyFormatter $aggregateMoneyFormatter;
-
-    private Money $money;
 
     private User $user;
 
@@ -47,12 +44,11 @@ class PurchaseServiceTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->money = Money::USD(self::FIVE_THOUSAND_CENTS);
-        $this->user = new User(self::USER_NAME);
+        $this->user = UserProvider::build();
         $this->purchase = new Purchase(
-            new CryptoCoin(self::COIN_NAME),
-            new Amount(self::AMOUNT),
-            new Price($this->money),
+            CryptoCoinProvider::build(),
+            AmountProvider::build(),
+            PriceProvider::build(),
             $this->user
         );
 
@@ -68,15 +64,15 @@ class PurchaseServiceTest extends TestCase
 
     public function testCanProcessPurchase(): void
     {
-        $fiftyFiveDollarsFormatted = $this->aggregateMoneyFormatter->format($this->money);
+        $fiftyFiveDollarsFormatted = $this->aggregateMoneyFormatter->format(PriceProvider::build()->asMoney());
         $this->loggerMock->expects($this->once())
             ->method('info')
             ->with(
                 sprintf('Starting to process purchase of coin "%s" amount "%s" for "%s" bought by "%s"',
-                    self::COIN_NAME,
-                self::AMOUNT,
+                    CryptoCoinProvider::COIN_NAME,
+                AmountProvider::AMOUNT,
                 $fiftyFiveDollarsFormatted,
-                self::USER_NAME
+                UserProvider::USER_NAME
                 )
             );
 

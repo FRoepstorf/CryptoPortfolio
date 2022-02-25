@@ -7,7 +7,10 @@ use Froepstorf\Cryptoportfolio\Domain\Coins\CryptoCoin;
 use Froepstorf\Cryptoportfolio\Domain\Price;
 use Froepstorf\Cryptoportfolio\Domain\Purchase;
 use Froepstorf\Cryptoportfolio\Domain\User;
-use Money\Money;
+use Froepstorf\Fixtures\AmountProvider;
+use Froepstorf\Fixtures\CryptoCoinProvider;
+use Froepstorf\Fixtures\PriceProvider;
+use Froepstorf\Fixtures\UserProvider;
 use PHPUnit\Framework\TestCase;
 
 /** @covers \Froepstorf\Cryptoportfolio\Domain\Purchase */
@@ -25,10 +28,10 @@ class PurchaseTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->cryptoCoin = new CryptoCoin('AXS');
-        $this->amount = new Amount(20.5);
-        $this->price = new Price(Money::USD(500));
-        $this->user = new User('test');
+        $this->cryptoCoin = CryptoCoinProvider::build();
+        $this->amount = AmountProvider::build();
+        $this->price = PriceProvider::build();
+        $this->user = UserProvider::build();
 
         $this->purchase = new Purchase($this->cryptoCoin, $this->amount, $this->price, $this->user);
     }
