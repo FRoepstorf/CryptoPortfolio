@@ -18,3 +18,6 @@ coverage:
 
 logs:
 	docker-compose logs -f php
+
+seed:
+	docker-compose run --rm php php ./bin/seed.php
