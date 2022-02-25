@@ -9,7 +9,8 @@
     "autoload-dev": {
         "psr-4": {
             "Froepstorf\\UnitTest\\": "tests/unit/",
-            "Froepstorf\\AcceptanceTest\\": "tests/acceptance/"
+            "Froepstorf\\AcceptanceTest\\": "tests/acceptance/",
+            "Froepstorf\\Fixtures\\": "tests/fixtures/"
         }
     },
     "require-dev": {
