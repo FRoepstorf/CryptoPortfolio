@@ -21,11 +21,11 @@ class MongoDbPurchaseWriter implements PurchaseWriter
     public function store(Purchase $purchase, UserId $userId): void
     {
         $this->collection->insertOne([
-            'coinName' => $purchase->cryptoCoin->coinName,
-            'amount' => $purchase->amount->value,
-            'price' => $purchase->price->asMoney()->getAmount(),
-            'currency' => $purchase->price->asMoney()->getCurrency()->getCode(),
-            'userId' => $userId->asString()
+            PurchaseCollection::COIN_NAME_KEY => $purchase->cryptoCoin->coinName,
+            PurchaseCollection::AMOUNT_KEY => $purchase->amount->value,
+            PurchaseCollection::PRICE_KEY => $purchase->price->asMoney()->getAmount(),
+            PurchaseCollection::CURRENCY_KEY => $purchase->price->asMoney()->getCurrency()->getCode(),
+            PurchaseCollection::USER_ID_KEY => $userId->asString()
         ]);
     }
 }
