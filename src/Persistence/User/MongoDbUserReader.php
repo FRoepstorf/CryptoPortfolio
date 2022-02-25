@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace Froepstorf\Cryptoportfolio\Persistence\User;
 
 use Froepstorf\Cryptoportfolio\Domain\User;
+use Froepstorf\Cryptoportfolio\Persistence\User\Collection\UserCollection;
 use MongoDB\BSON\ObjectId;
 use MongoDB\Client;
 use MongoDB\Collection;
@@ -12,9 +13,9 @@ class MongoDbUserReader implements UserReader
 {
     private Collection $collection;
 
-    public function __construct(private readonly Client $mongoClient)
+    public function __construct(UserCollection $userCollection)
     {
-        $this->collection = $this->mongoClient->selectCollection('test', 'user');
+        $this->collection = $userCollection->collection;
     }
 
     public function read(string $id): string

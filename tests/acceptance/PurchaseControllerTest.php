@@ -24,7 +24,7 @@ class PurchaseControllerTest extends TestCase
             'amount' => 20.5,
             'price' => '50000',
             'currency' => SupportedCurrencies::USD->value,
-            'userName' => 'test'
+            'userName' => 'test1'
         ];
         $jsonPayload = json_encode($payload, JSON_THROW_ON_ERROR);
         $request->getBody()->write($jsonPayload);

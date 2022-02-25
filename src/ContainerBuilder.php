@@ -26,6 +26,5 @@ class ContainerBuilder
     {
         $this->builder->enableDefinitionCache();
         $this->builder->enableCompilation(__DIR__ . '/../var/container');
-
     }
 }

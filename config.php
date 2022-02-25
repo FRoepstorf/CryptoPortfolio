@@ -8,11 +8,13 @@ use Froepstorf\Cryptoportfolio\EnvironmentReader;
 use Froepstorf\Cryptoportfolio\ErrorHandling\SentryClientOptionsBuilder;
 use Froepstorf\Cryptoportfolio\ErrorHandling\SentryDsn;
 use Froepstorf\Cryptoportfolio\Middleware\ErrorHandlerMiddleware;
+use Froepstorf\Cryptoportfolio\Persistence\Purchase\Collection\PurchaseCollection;
 use Froepstorf\Cryptoportfolio\Persistence\Purchase\MongoDbPurchaseReader;
 use Froepstorf\Cryptoportfolio\Persistence\Purchase\MongoDbPurchaseWriter;
 use Froepstorf\Cryptoportfolio\Persistence\Purchase\PurchaseReader;
 use Froepstorf\Cryptoportfolio\Persistence\Purchase\PurchaseRepository;
 use Froepstorf\Cryptoportfolio\Persistence\Purchase\PurchaseWriter;
+use Froepstorf\Cryptoportfolio\Persistence\User\Collection\UserCollection;
 use Froepstorf\Cryptoportfolio\Persistence\User\MongoDbUserReader;
 use Froepstorf\Cryptoportfolio\Persistence\User\MongoDbUserWriter;
 use Froepstorf\Cryptoportfolio\Persistence\User\UserReader;
@@ -33,6 +35,7 @@ use Sentry\ClientInterface;
 use Sentry\SentrySdk;
 use Sentry\State\Hub;
 use Sentry\State\Scope;
+use function DI\create;
 
 return [
     AppEnvironment::class => function (): AppEnvironment {
@@ -53,12 +56,18 @@ return [
         return new Client(EnvironmentReader::getMongoDsn());
     },
 
-    PurchaseReader::class => function(Client $mongoClient): PurchaseReader {
-        return new MongoDbPurchaseReader($mongoClient);
+    PurchaseCollection::class => function(Client $mongoClient): PurchaseCollection {
+        $collection = $mongoClient->selectCollection(EnvironmentReader::getMongoDatabaseName(), 'purchases');
+
+        return new PurchaseCollection($collection);
     },
 
-    PurchaseWriter::class => function (Client $mongoClient): PurchaseWriter {
-        return new MongoDbPurchaseWriter($mongoClient);
+    PurchaseReader::class => function(PurchaseCollection $purchaseCollection): PurchaseReader {
+        return new MongoDbPurchaseReader($purchaseCollection);
+    },
+
+    PurchaseWriter::class => function (PurchaseCollection $purchaseCollection): PurchaseWriter {
+        return new MongoDbPurchaseWriter($purchaseCollection);
     },
 
     PurchaseService::class => function (
@@ -85,12 +94,18 @@ return [
         ]);
     },
 
-    UserReader::class => function(Client $client): UserReader {
-        return new MongoDbUserReader($client);
+    UserCollection::class => function(Client $mongoClient): UserCollection {
+        $collection = $mongoClient->selectCollection(EnvironmentReader::getMongoDatabaseName(), 'users');
+
+        return new UserCollection($collection);
     },
 
-    UserWriter::class => function(Client $client): UserWriter {
-        return new MongoDbUserWriter($client);
+    UserReader::class => function(UserCollection $userCollection): UserReader {
+        return new MongoDbUserReader($userCollection);
+    },
+
+    UserWriter::class => function(UserCollection $userCollection): UserWriter {
+        return new MongoDbUserWriter($userCollection);
     },
 
     UserRepository::class => function(UserReader $userReader, UserWriter $userWriter): UserRepository {
@@ -101,7 +116,7 @@ return [
         return new UserService($userRepository);
     },
 
-    Scope::class => \DI\create(Scope::class),
+    Scope::class => create(Scope::class),
 
     ErrorHandlerMiddleware::class => function(
         ClientInterface $client,

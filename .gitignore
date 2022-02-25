@@ -3,3 +3,4 @@
 .env
 phpunit.xml
 /var/
+.secrets

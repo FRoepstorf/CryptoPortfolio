@@ -5,21 +5,25 @@ namespace Froepstorf\Cryptoportfolio\Persistence\User;
 
 use Froepstorf\Cryptoportfolio\Domain\User;
 use Froepstorf\Cryptoportfolio\Exception\UserAlreadyExistsException;
+use Froepstorf\Cryptoportfolio\Persistence\User\Collection\UserCollection;
 use MongoDB\BSON\ObjectId;
 use MongoDB\Client;
+use MongoDB\Collection;
 use MongoDB\Driver\Exception\BulkWriteException;
 
 class MongoDbUserWriter implements UserWriter
 {
-    public function __construct(private readonly Client $mongoClient)
+    private Collection $collection;
+
+    public function __construct(UserCollection $userCollection)
     {
+        $this->collection = $userCollection->collection;
     }
 
     public function store(User $user): void
     {
         try {
-            $collection = $this->mongoClient->selectCollection('test', 'user');
-            $collection->insertOne(['userName' => $user->name]);
+            $this->collection->insertOne(['userName' => $user->name]);
 
         } catch (BulkWriteException $exception) {
             $exception->getCode() === 11000 ?: throw new UserAlreadyExistsException();

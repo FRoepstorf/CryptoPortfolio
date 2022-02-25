@@ -22,6 +22,11 @@ class EnvironmentReader
         return self::readFromEnvironment('SENTRY_DSN');
     }
 
+    public static function getMongoDatabaseName(): string
+    {
+        return self::readFromEnvironment('MONGO_DATABASE_NAME');
+    }
+
     private static function readFromEnvironment(string $key): string
     {
         $envVariable = getenv($key);
