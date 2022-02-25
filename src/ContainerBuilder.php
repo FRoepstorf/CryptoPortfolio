@@ -14,17 +14,22 @@ class ContainerBuilder
 
     public function build(AppEnvironment $appEnvironment): ContainerInterface
     {
-        if ($appEnvironment->isProd()) {
-            $this->forProd();
-            return $this->builder->build();
-        }
+        match ($appEnvironment) {
+            AppEnvironment::PROD => $this->withDefinitionCacheAndCompilation(),
+            AppEnvironment::TEST, AppEnvironment::DEV => $this->withDevDefinition()
+        };
 
         return $this->builder->build();
     }
 
-    public function forProd(): void
+    private function withDefinitionCacheAndCompilation(): void
     {
         $this->builder->enableDefinitionCache();
         $this->builder->enableCompilation(__DIR__ . '/../var/container');
+    }
+
+    private function withDevDefinition(): void
+    {
+        $this->builder->addDefinitions(__DIR__ . '/../config-dev.php');
     }
 }

@@ -42,10 +42,7 @@ return [
         return EnvironmentReader::getAppEnvironment();
     },
 
-    LoggerInterface::class => function (AppEnvironment $appEnvironment): LoggerInterface {
-        if ($appEnvironment->isTest()) {
-            return new NullLogger();
-        }
+    LoggerInterface::class => function (): LoggerInterface {
         $logger =new Logger('main');
         $logger->pushHandler(new StreamHandler('php://stderr'));
 
