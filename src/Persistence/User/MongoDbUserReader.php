@@ -6,7 +6,6 @@ namespace Froepstorf\Cryptoportfolio\Persistence\User;
 use Froepstorf\Cryptoportfolio\Domain\User;
 use Froepstorf\Cryptoportfolio\Persistence\User\Collection\UserCollection;
 use MongoDB\BSON\ObjectId;
-use MongoDB\Client;
 use MongoDB\Collection;
 
 class MongoDbUserReader implements UserReader
@@ -31,10 +30,10 @@ class MongoDbUserReader implements UserReader
     {
         /** @psalm-var array<array-key, ObjectId>  $result */
         $result = $this->collection->findOne([
-            'userName' => $user->name
+            UserCollection::USER_NAME_KEY => $user->name
         ],
         [
-            'projection' => ['userName' => false]
+            'projection' => [UserCollection::USER_NAME_KEY => false]
         ]
         );
 
