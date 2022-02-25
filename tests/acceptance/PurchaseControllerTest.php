@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace Froepstorf\AcceptanceTest;
 
 use Fig\Http\Message\StatusCodeInterface;
+use Froepstorf\AcceptanceTest\helper\DatabaseTestCaseSetup;
 use Froepstorf\Cryptoportfolio\AppBuilder;
 use Froepstorf\Cryptoportfolio\ContainerBuilder;
 use Froepstorf\Cryptoportfolio\Domain\SupportedCurrencies;
@@ -13,8 +14,22 @@ use Slim\Psr7\Factory\ServerRequestFactory;
 /** @covers \Froepstorf\Cryptoportfolio\Controllers\Purchase\PurchaseController */
 class PurchaseControllerTest extends TestCase
 {
+    private DatabaseTestCaseSetup $databaseTestCaseSetup;
+
+    public function __construct(?string $name = null, array $data = [], $dataName = '')
+    {
+        parent::__construct($name, $data, $dataName);
+        $this->databaseTestCaseSetup = new DatabaseTestCaseSetup();
+    }
+
+    protected function setUp(): void
+    {
+        $this->databaseTestCaseSetup->setUp();
+    }
+
     public function testCanRegisterPurchase(): void
     {
+        $this->databaseTestCaseSetup->seedUserCollection();
         $requestBuilder = new ServerRequestFactory();
         $request = $requestBuilder->createServerRequest('POST', '/purchase', [
 
