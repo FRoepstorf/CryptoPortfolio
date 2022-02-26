@@ -10,7 +10,6 @@ enum CreateUserSupportedKey: string implements HasValidatableBodyKeys
 {
     case USER_NAME = 'userName';
 
-
     public static function getKeyValues(): ValidatableBodyKeys
     {
         $arrayKeys = array_map(
