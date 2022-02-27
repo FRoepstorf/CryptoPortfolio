@@ -19,6 +19,7 @@ class MongoDbUserReader implements UserReader
 
     public function read(string $id): string
     {
+        /** @psalm-var array<array-key, string> $result */
         $result = $this->collection->findOne([
             '_id' => $id
         ]);
