@@ -18,7 +18,8 @@
         "phpunit/phpunit": "^9.5",
         "lctrs/psalm-psr-container-plugin": "^1.7",
         "rector/rector": "^0.12.16",
-        "symplify/easy-coding-standard": "^10.1"
+        "symplify/easy-coding-standard": "^10.1",
+        "squizlabs/php_codesniffer": "^3.6"
     },
     "require": {
         "bref/bref": "^1.5",

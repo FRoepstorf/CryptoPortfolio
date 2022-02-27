@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Froepstorf\UnitTest;
@@ -6,7 +7,6 @@ namespace Froepstorf\UnitTest;
 use Froepstorf\Cryptoportfolio\AppEnvironment;
 use PHPUnit\Framework\TestCase;
 
-/** @covers \Froepstorf\Cryptoportfolio\AppEnvironment */
 class AppEnvironmentTest extends TestCase
 {
     public function testIsProdReturnsTrueIfProd(): void
@@ -16,7 +16,6 @@ class AppEnvironmentTest extends TestCase
 
     public function testReturnsTrueIfTest(): void
     {
-
         $this->assertTrue(AppEnvironment::TEST->isTest());
     }
 
@@ -25,37 +24,27 @@ class AppEnvironmentTest extends TestCase
         $this->assertFalse(AppEnvironment::PROD->isTestOrDev());
     }
 
-    /** @dataProvider nonProdEnvProvider */
+    /**
+     * @dataProvider nonProdEnvProvider
+     */
     public function testReturnsTrueIfDevOrTest(AppEnvironment $appEnvironment): void
     {
         $this->assertTrue($appEnvironment->isTestOrDev());
     }
 
-    /** @dataProvider nonProdEnvProvider  */
+    /**
+     * @dataProvider nonProdEnvProvider
+     */
     public function testIsFalseIfNotSetToProd(AppEnvironment $appEnvironment): void
     {
         $this->assertFalse($appEnvironment->isProd());
     }
 
-    /** @dataProvider nonTestEnvProvider */
+    /**
+     * @dataProvider nonTestEnvProvider
+     */
     public function testIsFalseIfNotSetToTest(AppEnvironment $appEnvironment): void
     {
         $this->assertFalse($appEnvironment->isTest());
-    }
-
-    private function nonProdEnvProvider(): array
-    {
-        return [
-            [AppEnvironment::DEV],
-            [AppEnvironment::TEST]
-        ];
-    }
-
-    private function nonTestEnvProvider(): array
-    {
-        return [
-            [AppEnvironment::DEV],
-            [AppEnvironment::PROD]
-        ];
     }
 }

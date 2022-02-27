@@ -1,10 +1,9 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Froepstorf\UnitTest\Services;
 
-use Froepstorf\Cryptoportfolio\Domain\Amount;
-use Froepstorf\Cryptoportfolio\Domain\Coins\CryptoCoin;
-use Froepstorf\Cryptoportfolio\Domain\Price;
 use Froepstorf\Cryptoportfolio\Domain\Purchase;
 use Froepstorf\Cryptoportfolio\Domain\SupportedCurrencies;
 use Froepstorf\Cryptoportfolio\Domain\User;
@@ -19,13 +18,11 @@ use Froepstorf\Fixtures\UserProvider;
 use Money\Currencies\ISOCurrencies;
 use Money\Formatter\AggregateMoneyFormatter;
 use Money\Formatter\IntlMoneyFormatter;
-use Money\Money;
 use NumberFormatter;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Psr\Log\LoggerInterface;
 
-/** @covers \Froepstorf\Cryptoportfolio\Services\PurchaseService */
 class PurchaseServiceTest extends TestCase
 {
     private PurchaseRepository|MockObject $purchaseRepositoryMock;
@@ -54,12 +51,20 @@ class PurchaseServiceTest extends TestCase
 
         $this->loggerMock = $this->createMock(LoggerInterface::class);
         $this->userServiceMock = $this->createMock(UserService::class);
-        $this->aggregateMoneyFormatter =  new AggregateMoneyFormatter([
-        SupportedCurrencies::USD->value => new IntlMoneyFormatter(new \NumberFormatter('de_DE', NumberFormatter::CURRENCY), new ISOCurrencies()),
-    ]);
+        $this->aggregateMoneyFormatter = new AggregateMoneyFormatter([
+            SupportedCurrencies::USD->value => new IntlMoneyFormatter(new \NumberFormatter(
+                'de_DE',
+                NumberFormatter::CURRENCY
+            ), new ISOCurrencies()),
+        ]);
         $this->purchaseRepositoryMock = $this->createMock(PurchaseRepository::class);
 
-        $this->purchaseService = new PurchaseService($this->loggerMock, $this->aggregateMoneyFormatter, $this->purchaseRepositoryMock, $this->userServiceMock);
+        $this->purchaseService = new PurchaseService(
+            $this->loggerMock,
+            $this->aggregateMoneyFormatter,
+            $this->purchaseRepositoryMock,
+            $this->userServiceMock
+        );
     }
 
     public function testCanProcessPurchase(): void
@@ -68,11 +73,12 @@ class PurchaseServiceTest extends TestCase
         $this->loggerMock->expects($this->once())
             ->method('info')
             ->with(
-                sprintf('Starting to process purchase of coin "%s" amount "%s" for "%s" bought by "%s"',
+                sprintf(
+                    'Starting to process purchase of coin "%s" amount "%s" for "%s" bought by "%s"',
                     CryptoCoinProvider::COIN_NAME,
-                AmountProvider::AMOUNT,
-                $fiftyFiveDollarsFormatted,
-                UserProvider::USER_NAME
+                    AmountProvider::AMOUNT,
+                    $fiftyFiveDollarsFormatted,
+                    UserProvider::USER_NAME
                 )
             );
 

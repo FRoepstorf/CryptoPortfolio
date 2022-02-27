@@ -23,4 +23,7 @@ seed:
 	docker-compose run --rm php php ./bin/seed.php
 
 rector:
-	docker-compose run --rm php ./vendor/bin/rector process src
+	docker-compose run --rm php ./vendor/bin/rector process src tests
+
+csfix:
+	docker-compose run --rm php ./vendor/bin/ecs check src tests --fix

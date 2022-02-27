@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Froepstorf\UnitTest\Persistence\Purchase;
 
 use Froepstorf\Cryptoportfolio\Persistence\Purchase\PurchaseReader;
@@ -10,10 +12,10 @@ use Froepstorf\Fixtures\PurchaseProvider;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
-/** @covers \Froepstorf\Cryptoportfolio\Persistence\Purchase\PurchaseRepository */
 class PurchaseRepositoryTest extends TestCase
 {
     private PurchaseReader|MockObject $purchaseReaderMock;
+
     private PurchaseWriter|MockObject $purchaseWriterMock;
 
     private PurchaseRepository $purchaseRepository;

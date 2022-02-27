@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Froepstorf\UnitTest\Domain;
 
 use Froepstorf\Cryptoportfolio\Domain\Amount;
@@ -13,7 +15,6 @@ use Froepstorf\Fixtures\PriceProvider;
 use Froepstorf\Fixtures\UserProvider;
 use PHPUnit\Framework\TestCase;
 
-/** @covers \Froepstorf\Cryptoportfolio\Domain\Purchase */
 class PurchaseTest extends TestCase
 {
     private CryptoCoin $cryptoCoin;
