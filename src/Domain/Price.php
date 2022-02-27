@@ -7,7 +7,7 @@ use Money\Money;
 
 final class Price
 {
-    public function __construct(private Money $money)
+    public function __construct(private readonly Money $money)
     {
     }
 

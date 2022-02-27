@@ -11,7 +11,7 @@ use MongoDB\Collection;
 
 class MongoDbPurchaseWriter implements PurchaseWriter
 {
-    private Collection $collection;
+    private readonly Collection $collection;
 
     public function __construct(PurchaseCollection $purchaseCollection)
     {

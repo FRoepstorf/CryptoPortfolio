@@ -8,9 +8,24 @@ use Sentry\Options;
 
 final class SentryClientOptionsBuilder
 {
+    /**
+     * @var string
+     */
     private const DSN_KEY = 'dsn';
+
+    /**
+     * @var string
+     */
     private const ENVIRONMENT_KEY = 'environment';
+
+    /**
+     * @var string
+     */
     private const ATTACH_STACK_TRACE_KEY = 'attach_stacktrace';
+
+    /**
+     * @var string
+     */
     private const DEFAULT_INTEGRATIONS_KEY = 'default_integrations';
 
     private readonly array $options;

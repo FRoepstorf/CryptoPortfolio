@@ -10,7 +10,7 @@ use MongoDB\Collection;
 
 class MongoDbUserReader implements UserReader
 {
-    private Collection $collection;
+    private readonly Collection $collection;
 
     public function __construct(UserCollection $userCollection)
     {

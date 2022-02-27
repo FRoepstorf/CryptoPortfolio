@@ -7,7 +7,7 @@ use Psr\Container\ContainerInterface;
 
 class ContainerBuilder
 {
-    public function __construct(private \DI\ContainerBuilder $builder = new \DI\ContainerBuilder())
+    public function __construct(private readonly \DI\ContainerBuilder $builder = new \DI\ContainerBuilder())
     {
         $this->builder->addDefinitions(__DIR__ . '/../config.php');
     }

@@ -8,13 +8,6 @@ use MongoDB\Collection;
 
 class MongoDbPurchaseReader implements PurchaseReader
 {
-    private Collection $collection;
-
-    public function __construct(private readonly PurchaseCollection $purchaseCollection)
-    {
-        $this->collection = $this->purchaseCollection->collection;
-    }
-
     public function read(): void
     {
 

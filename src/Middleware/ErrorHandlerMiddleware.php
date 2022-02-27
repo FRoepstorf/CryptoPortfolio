@@ -32,7 +32,7 @@ class ErrorHandlerMiddleware implements MiddlewareInterface
             return $handler->handle($request);
         } catch (Throwable $throwable) {
             $this->logger->error(
-                sprintf('Exception "%s" was thrown with message "%s"', get_class($throwable), $throwable->getMessage())
+                sprintf('Exception "%s" was thrown with message "%s"', $throwable::class, $throwable->getMessage())
             );
             if ($this->appEnvironment->isProd()) {
                 $this->sentryClient->captureException($throwable, $this->scope);

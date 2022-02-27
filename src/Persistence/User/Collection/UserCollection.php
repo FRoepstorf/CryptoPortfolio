@@ -7,7 +7,10 @@ use MongoDB\Collection;
 
 class UserCollection
 {
-    public const USER_NAME_KEY = 'userName';
+    /**
+     * @var string
+     */
+    public final const USER_NAME_KEY = 'userName';
 
     public function __construct(public readonly Collection $collection)
     {

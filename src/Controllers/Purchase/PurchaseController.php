@@ -15,8 +15,8 @@ class PurchaseController extends AbstractController
 {
     public function __construct(
         LoggerInterface $logger,
-        private PurchaseService $purchaseService,
-        private PurchaseRequestMapper $purchaseRequestMapper
+        private readonly PurchaseService $purchaseService,
+        private readonly PurchaseRequestMapper $purchaseRequestMapper
     )
     {
         parent::__construct($logger);

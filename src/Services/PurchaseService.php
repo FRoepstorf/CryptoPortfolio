@@ -11,10 +11,10 @@ use Psr\Log\LoggerInterface;
 class PurchaseService
 {
     public function __construct(
-        private LoggerInterface $logger,
-        private AggregateMoneyFormatter $moneyFormatter,
-        private PurchaseRepository $purchaseRepository,
-        private UserService $userService
+        private readonly LoggerInterface $logger,
+        private readonly AggregateMoneyFormatter $moneyFormatter,
+        private readonly PurchaseRepository $purchaseRepository,
+        private readonly UserService $userService
     )
     {
     }

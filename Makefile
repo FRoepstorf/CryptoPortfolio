@@ -21,3 +21,6 @@ logs:
 
 seed:
 	docker-compose run --rm php php ./bin/seed.php
+
+rector:
+	docker-compose run --rm php ./vendor/bin/rector process src

@@ -7,11 +7,30 @@ use MongoDB\Collection;
 
 class PurchaseCollection
 {
-    public const COIN_NAME_KEY = 'coinName';
-    public const AMOUNT_KEY = 'amount';
-    public const PRICE_KEY = 'price';
-    public const CURRENCY_KEY = 'currency';
-    public const USER_ID_KEY = 'userId';
+    /**
+     * @var string
+     */
+    public final const COIN_NAME_KEY = 'coinName';
+
+    /**
+     * @var string
+     */
+    public final const AMOUNT_KEY = 'amount';
+
+    /**
+     * @var string
+     */
+    public final const PRICE_KEY = 'price';
+
+    /**
+     * @var string
+     */
+    public final const CURRENCY_KEY = 'currency';
+
+    /**
+     * @var string
+     */
+    public final const USER_ID_KEY = 'userId';
 
     public function __construct(public readonly Collection $collection)
     {
