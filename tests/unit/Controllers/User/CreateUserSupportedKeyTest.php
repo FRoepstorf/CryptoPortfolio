@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Froepstorf\UnitTest\Controllers\User;
 
 use Froepstorf\Cryptoportfolio\Controllers\User\CreateUserSupportedKey;

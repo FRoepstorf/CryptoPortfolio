@@ -1,9 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Froepstorf\UnitTest\Middleware;
 
 use Fig\Http\Message\StatusCodeInterface;
-use Froepstorf\Cryptoportfolio\AppEnvironment;
 use Froepstorf\Cryptoportfolio\Middleware\ErrorHandlerMiddleware;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
@@ -38,7 +39,11 @@ class ErrorHandlerMiddlewareTest extends TestCase
         $this->scope = new Scope();
         $this->loggerMock = $this->createMock(LoggerInterface::class);
 
-        $this->errorHandlerMiddleware = new ErrorHandlerMiddleware($this->sentryClientMock, $this->scope, $this->loggerMock, AppEnvironment::TEST);
+        $this->errorHandlerMiddleware = new ErrorHandlerMiddleware(
+            $this->sentryClientMock,
+            $this->scope,
+            $this->loggerMock
+        );
     }
 
     public function testReturnsHandlersResponseIfNoExceptionWasThrown(): void
@@ -65,36 +70,8 @@ class ErrorHandlerMiddlewareTest extends TestCase
             ->method('captureException')
             ->with($thrownException, $this->scope);
 
-        $this->errorHandlerMiddleware = new ErrorHandlerMiddleware($this->sentryClientMock, $this->scope, $this->loggerMock, AppEnvironment::PROD);
         $actualResponse = $this->errorHandlerMiddleware->process($this->serverRequestMock, $this->requestHandlerMock);
 
         $this->assertSame(StatusCodeInterface::STATUS_INTERNAL_SERVER_ERROR, $actualResponse->getStatusCode());
-    }
-
-    /** @dataProvider nonProdAppEnvironmentProvider */
-    public function testRethrowsExcpetionIfAppEnvironmentNotProd(AppEnvironment $appEnvironment)
-    {
-        $thrownException = $this->createMock(Throwable::class);
-        $this->requestHandlerMock->expects($this->once())
-            ->method('handle')
-            ->with($this->serverRequestMock)
-            ->willThrowException($thrownException);
-
-        $this->loggerMock->expects($this->once())
-            ->method('error');
-
-        $this->expectException(Throwable::class);
-
-        $this->errorHandlerMiddleware = new ErrorHandlerMiddleware($this->sentryClientMock, $this->scope, $this->loggerMock, $appEnvironment);
-
-        $this->errorHandlerMiddleware->process($this->serverRequestMock, $this->requestHandlerMock);
-    }
-
-    private function nonProdAppEnvironmentProvider(): array
-    {
-        return [
-            [AppEnvironment::TEST],
-            [AppEnvironment::DEV],
-        ];
     }
 }

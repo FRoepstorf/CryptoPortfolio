@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Froepstorf\Cryptoportfolio\Persistence\Purchase\Collection;
@@ -32,7 +33,8 @@ class PurchaseCollection
      */
     public final const USER_ID_KEY = 'userId';
 
-    public function __construct(public readonly Collection $collection)
-    {
+    public function __construct(
+        public readonly Collection $collection
+    ) {
     }
 }

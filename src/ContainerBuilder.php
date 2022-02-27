@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Froepstorf\Cryptoportfolio;
@@ -7,8 +8,9 @@ use Psr\Container\ContainerInterface;
 
 class ContainerBuilder
 {
-    public function __construct(private readonly \DI\ContainerBuilder $containerBuilder = new \DI\ContainerBuilder())
-    {
+    public function __construct(
+        private readonly \DI\ContainerBuilder $containerBuilder = new \DI\ContainerBuilder()
+    ) {
         $this->containerBuilder->addDefinitions(__DIR__ . '/../config.php');
     }
 

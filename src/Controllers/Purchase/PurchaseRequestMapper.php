@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Froepstorf\Cryptoportfolio\Controllers\Purchase;
@@ -22,7 +23,7 @@ class PurchaseRequestMapper
         $parsedBody = $request->getParsedBody();
         return new Purchase(
             cryptoCoin:  new CryptoCoin($parsedBody[PurchaseSupportedKey::COIN_NAME_KEY->value]),
-            amount:  new Amount((float)$parsedBody[PurchaseSupportedKey::AMOUNT_KEY->value]),
+            amount:  new Amount((float) $parsedBody[PurchaseSupportedKey::AMOUNT_KEY->value]),
             price:  $this->createPrice($parsedBody),
             user: new User($parsedBody[PurchaseSupportedKey::USER_KEY->value])
         );
@@ -35,6 +36,7 @@ class PurchaseRequestMapper
         ParsedBodyValidator::ensuresParsedBodyIsArray($parsedBody);
         ParsedBodyValidator::ensureKeysAreSet($parsedBody, PurchaseSupportedKey::getKeyValues());
     }
+
     /**
      * @psalm-param  array<string, non-empty-string> $parsedBody
      * @psalm-suppress ArgumentTypeCoercion

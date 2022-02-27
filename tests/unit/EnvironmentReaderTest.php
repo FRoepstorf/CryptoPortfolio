@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Froepstorf\UnitTest;
 
 use Froepstorf\Cryptoportfolio\AppEnvironment;
@@ -10,7 +12,6 @@ use PHPUnit\Framework\TestCase;
 /** @covers \Froepstorf\Cryptoportfolio\EnvironmentReader */
 class EnvironmentReaderTest extends TestCase
 {
-
     protected function setUp(): void
     {
         putenv('APP_ENVIRONMENT=test');

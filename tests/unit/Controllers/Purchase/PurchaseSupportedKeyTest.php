@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Froepstorf\UnitTest\Controllers\Purchase;
 
 use Froepstorf\Cryptoportfolio\Controllers\Purchase\PurchaseSupportedKey;
@@ -9,9 +11,24 @@ use PHPUnit\Framework\TestCase;
 /** @covers \Froepstorf\Cryptoportfolio\Controllers\Purchase\PurchaseSupportedKey */
 class PurchaseSupportedKeyTest extends TestCase
 {
+    /**
+     * @var string
+     */
     private const COIN_NAME_KEY = 'coinName';
+
+    /**
+     * @var string
+     */
     private const AMOUNT_KEY = 'amount';
+
+    /**
+     * @var string
+     */
     private const PRICE_KEY = 'price';
+
+    /**
+     * @var string
+     */
     private const CURRENCY_KEY = 'currency';
 
     public function testCanGetCorrectCoinNameKey(): void

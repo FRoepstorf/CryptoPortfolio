@@ -40,15 +40,17 @@ class MongoDbUserReaderTest extends TestCase
         $user = UserProvider::build();
         $this->collection->expects($this->once())
             ->method('findOne')
-            ->with(
-                [
-                    self::USER_NAME_KEY => $user->name
-            ],
-                ['projection' => [
-                    self::USER_NAME_KEY => false]
-                ]
-            )
-            ->willReturn(['_id' => new ObjectId(self::MONGO_USER_ID)]);
+            ->with([
+                self::USER_NAME_KEY => $user->name,
+            ], [
+                'projection' => [
+                    self::USER_NAME_KEY => false,
+                ],
+
+            ])
+            ->willReturn([
+                '_id' => new ObjectId(self::MONGO_USER_ID),
+            ]);
 
         $this->assertSame(self::MONGO_USER_ID, $this->mongoDbUserReader->getUserIdFromUser($user)->asString());
     }

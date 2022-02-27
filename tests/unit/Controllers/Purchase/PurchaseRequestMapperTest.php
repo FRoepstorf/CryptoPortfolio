@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Froepstorf\UnitTest\Controllers\Purchase;
 
 use Froepstorf\Cryptoportfolio\Controllers\Purchase\PurchaseRequestMapper;
@@ -32,7 +34,7 @@ class PurchaseRequestMapperTest extends TestCase
                 PurchaseSupportedKey::AMOUNT_KEY->value => 20.5,
                 PurchaseSupportedKey::PRICE_KEY->value => '500000',
                 PurchaseSupportedKey::CURRENCY_KEY->value => 'USD',
-                PurchaseSupportedKey::USER_KEY->value => 'test'
+                PurchaseSupportedKey::USER_KEY->value => 'test',
             ]);
 
         $mappedPurchase = $this->purchaseRequestMapper->mapPurchase($this->request);

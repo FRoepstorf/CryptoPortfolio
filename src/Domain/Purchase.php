@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Froepstorf\Cryptoportfolio\Domain;
@@ -12,7 +13,6 @@ final class Purchase
         public readonly Amount $amount,
         public readonly Price $price,
         public readonly User $user
-    )
-    {
+    ) {
     }
 }

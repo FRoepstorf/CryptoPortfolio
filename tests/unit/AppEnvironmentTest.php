@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Froepstorf\UnitTest;
@@ -16,7 +17,6 @@ class AppEnvironmentTest extends TestCase
 
     public function testReturnsTrueIfTest(): void
     {
-
         $this->assertTrue(AppEnvironment::TEST->isTest());
     }
 
@@ -25,37 +25,39 @@ class AppEnvironmentTest extends TestCase
         $this->assertFalse(AppEnvironment::PROD->isTestOrDev());
     }
 
-    /** @dataProvider nonProdEnvProvider */
+    /**
+     * @dataProvider nonProdEnvProvider
+     */
     public function testReturnsTrueIfDevOrTest(AppEnvironment $appEnvironment): void
     {
         $this->assertTrue($appEnvironment->isTestOrDev());
     }
 
-    /** @dataProvider nonProdEnvProvider  */
+    /**
+     * @dataProvider nonProdEnvProvider()
+     */
     public function testIsFalseIfNotSetToProd(AppEnvironment $appEnvironment): void
     {
         $this->assertFalse($appEnvironment->isProd());
     }
 
-    /** @dataProvider nonTestEnvProvider */
+    /**
+     * @dataProvider nonTestEnvProvider()
+     */
     public function testIsFalseIfNotSetToTest(AppEnvironment $appEnvironment): void
     {
         $this->assertFalse($appEnvironment->isTest());
     }
 
-    private function nonProdEnvProvider(): array
+    public function nonProdEnvProvider(): \Iterator
     {
-        return [
-            [AppEnvironment::DEV],
-            [AppEnvironment::TEST]
-        ];
+        yield [AppEnvironment::TEST];
+        yield [AppEnvironment::DEV];
     }
 
-    private function nonTestEnvProvider(): array
+    public function nonTestEnvProvider(): \Iterator
     {
-        return [
-            [AppEnvironment::DEV],
-            [AppEnvironment::PROD]
-        ];
+        yield [AppEnvironment::PROD];
+        yield [AppEnvironment::DEV];
     }
 }
