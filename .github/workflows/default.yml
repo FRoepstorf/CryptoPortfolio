@@ -65,6 +65,12 @@ jobs:
       - name: Install dependencies
         run: composer install --prefer-dist --no-progress
 
+      - name: Run rector
+        run: ./vendor/bin/rector process src tests
+
+      - name: Run csfix
+        run: ./vendor/bin/ecs check src tests
+
       - name: Run tests
         run: ./vendor/bin/phpunit --testsuite unit
 
