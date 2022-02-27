@@ -19,11 +19,11 @@ class MongoDbUserReader implements UserReader
 
     public function read(string $id): string
     {
-        $result = $this->collection->find([
+        $result = $this->collection->findOne([
             '_id' => $id
         ]);
 
-        return $result->getId()->serialize();
+        return $result['_id'];
     }
 
     public function getUserIdFromUser(User $user): UserId
