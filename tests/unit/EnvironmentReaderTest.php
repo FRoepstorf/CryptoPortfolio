@@ -39,6 +39,11 @@ class EnvironmentReaderTest extends TestCase
         $this->assertSame('StubbedDsn', EnvironmentReader::getSentryDsn());
     }
 
+    public function testCanGetMongoDbDatabaseName(): void
+    {
+        $this->assertSame('test', EnvironmentReader::getMongoDatabaseName());
+    }
+
     public function testCanGetMongoDsn(): void
     {
         // TODO will break in CI when connecting outside of docker-compose dns
