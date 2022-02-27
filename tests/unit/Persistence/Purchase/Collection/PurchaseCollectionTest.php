@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Froepstorf\UnitTest\Persistence\Purchase\Collection;
 
 use Froepstorf\Cryptoportfolio\Persistence\Purchase\Collection\PurchaseCollection;

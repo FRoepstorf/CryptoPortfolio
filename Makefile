@@ -21,3 +21,11 @@ logs:
 
 seed:
 	docker-compose run --rm php php ./bin/seed.php
+
+rector:
+	docker-compose run --rm -e XDEBUG_MODE=off php ./vendor/bin/rector process src tests
+
+csfix:
+	docker-compose run --rm -e XDEBUG_MODE=off php ./vendor/bin/ecs check src tests --fix
+
+precommit: rector csfix psalm test

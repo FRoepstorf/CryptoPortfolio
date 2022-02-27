@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Froepstorf\Cryptoportfolio;
@@ -11,7 +12,7 @@ enum AppEnvironment: string
 
     public function isProd(): bool
     {
-        return match($this) {
+        return match ($this) {
             self::PROD => true,
             default => false,
         };

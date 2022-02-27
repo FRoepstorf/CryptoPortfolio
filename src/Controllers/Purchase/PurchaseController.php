@@ -1,11 +1,11 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Froepstorf\Cryptoportfolio\Controllers\Purchase;
 
 use Froepstorf\Cryptoportfolio\Controllers\AbstractController;
 use Froepstorf\Cryptoportfolio\Services\PurchaseService;
-use JetBrains\PhpStorm\Pure;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Log\LoggerInterface;
 use Slim\Psr7\Request;
@@ -15,10 +15,9 @@ class PurchaseController extends AbstractController
 {
     public function __construct(
         LoggerInterface $logger,
-        private PurchaseService $purchaseService,
-        private PurchaseRequestMapper $purchaseRequestMapper
-    )
-    {
+        private readonly PurchaseService $purchaseService,
+        private readonly PurchaseRequestMapper $purchaseRequestMapper
+    ) {
         parent::__construct($logger);
     }
 

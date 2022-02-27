@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Froepstorf\Cryptoportfolio\Controllers\Purchase;
@@ -22,10 +23,18 @@ class PurchaseRequestMapper
         $parsedBody = $request->getParsedBody();
         return new Purchase(
             cryptoCoin:  new CryptoCoin($parsedBody[PurchaseSupportedKey::COIN_NAME_KEY->value]),
-            amount:  new Amount((float)$parsedBody[PurchaseSupportedKey::AMOUNT_KEY->value]),
+            amount:  new Amount((float) $parsedBody[PurchaseSupportedKey::AMOUNT_KEY->value]),
             price:  $this->createPrice($parsedBody),
             user: new User($parsedBody[PurchaseSupportedKey::USER_KEY->value])
         );
+    }
+
+    private function validateRequest(Request $request): void
+    {
+        /** @psalm-var array<string, non-empty-string> $parsedBody */
+        $parsedBody = $request->getParsedBody();
+        ParsedBodyValidator::ensuresParsedBodyIsArray($parsedBody);
+        ParsedBodyValidator::ensureKeysAreSet($parsedBody, PurchaseSupportedKey::getKeyValues());
     }
 
     /**
@@ -40,13 +49,5 @@ class PurchaseRequestMapper
         );
 
         return new Price($money);
-    }
-
-    private function validateRequest(Request $request): void
-    {
-        /** @psalm-var array<string, non-empty-string> $parsedBody */
-        $parsedBody = $request->getParsedBody();
-        ParsedBodyValidator::ensuresParsedBodyIsArray($parsedBody);
-        ParsedBodyValidator::ensureKeysAreSet($parsedBody, PurchaseSupportedKey::getKeyValues());
     }
 }

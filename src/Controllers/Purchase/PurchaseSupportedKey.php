@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Froepstorf\Cryptoportfolio\Controllers\Purchase;
@@ -17,7 +18,7 @@ enum PurchaseSupportedKey: string implements HasValidatableBodyKeys
     public static function getKeyValues(): ValidatableBodyKeys
     {
         $arrayKeys = array_map(
-            fn(PurchaseSupportedKey $purchaseSupportedKey) => $purchaseSupportedKey->value,
+            fn (PurchaseSupportedKey $purchaseSupportedKey): string => $purchaseSupportedKey->value,
             self::cases()
         );
 

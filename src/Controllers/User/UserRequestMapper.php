@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Froepstorf\Cryptoportfolio\Controllers\User;
@@ -18,5 +19,4 @@ class UserRequestMapper
 
         return new User($parsedBody['userName']);
     }
-
 }

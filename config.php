@@ -59,8 +59,8 @@ return [
         return new PurchaseCollection($collection);
     },
 
-    PurchaseReader::class => function(PurchaseCollection $purchaseCollection): PurchaseReader {
-        return new MongoDbPurchaseReader($purchaseCollection);
+    PurchaseReader::class => function(): PurchaseReader {
+        return new MongoDbPurchaseReader();
     },
 
     PurchaseWriter::class => function (PurchaseCollection $purchaseCollection): PurchaseWriter {
@@ -118,10 +118,9 @@ return [
     ErrorHandlerMiddleware::class => function(
         ClientInterface $client,
         Scope $scope,
-        LoggerInterface $logger,
-        AppEnvironment $appEnvironment
+        LoggerInterface $logger
     ): ErrorHandlerMiddleware {
-        return new ErrorHandlerMiddleware($client, $scope, $logger, $appEnvironment);
+        return new ErrorHandlerMiddleware($client, $scope, $logger);
     },
 
     ClientInterface::class => function(AppEnvironment $appEnvironment): ClientInterface{

@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Froepstorf\Cryptoportfolio\Persistence\User;
@@ -11,7 +12,7 @@ use MongoDB\Driver\Exception\BulkWriteException;
 
 class MongoDbUserWriter implements UserWriter
 {
-    private Collection $collection;
+    private readonly Collection $collection;
 
     public function __construct(UserCollection $userCollection)
     {
@@ -21,12 +22,13 @@ class MongoDbUserWriter implements UserWriter
     public function store(User $user): void
     {
         try {
-            $this->collection->insertOne([UserCollection::USER_NAME_KEY => $user->name]);
+            $this->collection->insertOne([
+                UserCollection::USER_NAME_KEY => $user->name,
+            ]);
+        } catch (BulkWriteException $bulkWriteException) {
+            $bulkWriteException->getCode() === 11000 ?: throw new UserAlreadyExistsException();
 
-        } catch (BulkWriteException $exception) {
-            $exception->getCode() === 11000 ?: throw new UserAlreadyExistsException();
-
-            throw $exception;
+            throw $bulkWriteException;
         }
     }
 }

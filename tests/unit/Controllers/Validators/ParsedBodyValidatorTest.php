@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Froepstorf\UnitTest\Controllers\Validators;
 
 use Froepstorf\Cryptoportfolio\Controllers\Validators\ParsedBodyValidator;
@@ -11,7 +13,14 @@ use PHPUnit\Framework\TestCase;
 /** @covers \Froepstorf\Cryptoportfolio\Controllers\Validators\ParsedBodyValidator */
 class ParsedBodyValidatorTest extends TestCase
 {
+    /**
+     * @var string
+     */
     private const KEY_1 = 'key1';
+
+    /**
+     * @var string
+     */
     private const KEY_2 = 'key2';
 
     public function testThrowsNoExceptionIfParsedBodyIsArray(): void
@@ -26,7 +35,10 @@ class ParsedBodyValidatorTest extends TestCase
     public function testThrowsNoExceptionIfAllKeysInParsedBodyAreSet(): void
     {
         $validatableBodyKeys = new ValidatableBodyKeys([self::KEY_1, self::KEY_2]);
-        $parsedBody = [self::KEY_1 => 'test', self::KEY_2 => 'test2'];
+        $parsedBody = [
+            self::KEY_1 => 'test',
+            self::KEY_2 => 'test2',
+        ];
 
         ParsedBodyValidator::ensureKeysAreSet($parsedBody, $validatableBodyKeys);
 
@@ -44,11 +56,13 @@ class ParsedBodyValidatorTest extends TestCase
 
     public function testThrowsExceptionIfKeysAreNotSet(): void
     {
-        $validdatableBodyKeys = new ValidatableBodyKeys([self::KEY_1, self::KEY_2]);
-        $parsedBody = [self::KEY_1 => 'value'];
+        $validatableBodyKeys = new ValidatableBodyKeys([self::KEY_1, self::KEY_2]);
+        $parsedBody = [
+            self::KEY_1 => 'value',
+        ];
 
         $this->expectException(ExpectedKeyIsNotSetException::class);
 
-        ParsedBodyValidator::ensureKeysAreSet($parsedBody, $validdatableBodyKeys);
+        ParsedBodyValidator::ensureKeysAreSet($parsedBody, $validatableBodyKeys);
     }
 }

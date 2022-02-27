@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Froepstorf\AcceptanceTest\helper;
@@ -10,8 +11,9 @@ use Froepstorf\Cryptoportfolio\Persistence\User\Collection\UserCollection;
 
 class DatabaseTestCaseSetup
 {
-    private UserCollection $userCollection;
-    private PurchaseCollection $purchaseCollection;
+    private readonly UserCollection $userCollection;
+
+    private readonly PurchaseCollection $purchaseCollection;
 
     public function __construct()
     {
@@ -23,21 +25,20 @@ class DatabaseTestCaseSetup
     public function setUp(): void
     {
         $this->dropCollections();
-
     }
 
     public function seedUserCollection(): void
     {
-        $result = $this->userCollection->collection->insertMany([
+        $insertManyResult = $this->userCollection->collection->insertMany([
             [
-                'userName' => 'test1'
+                'userName' => 'test1',
             ],
             [
-                'userName' => 'test2'
-            ]
+                'userName' => 'test2',
+            ],
         ]);
 
-        $result->isAcknowledged() ?: throw new \Exception('Could not seed userCollection');
+        $insertManyResult->isAcknowledged() ?: throw new \Exception('Could not seed userCollection');
     }
 
     private function dropCollections(): void
@@ -45,5 +46,4 @@ class DatabaseTestCaseSetup
         $this->purchaseCollection->collection->drop();
         $this->userCollection->collection->drop();
     }
-
 }

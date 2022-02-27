@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Froepstorf\UnitTest\Persistence\User\Collection;
 
 use Froepstorf\Cryptoportfolio\Persistence\User\Collection\UserCollection;
