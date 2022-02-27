@@ -13,7 +13,7 @@ enum CreateUserSupportedKey: string implements HasValidatableBodyKeys
     public static function getKeyValues(): ValidatableBodyKeys
     {
         $arrayKeys = array_map(
-            fn(CreateUserSupportedKey $createUserSupportedKey) => $createUserSupportedKey->value,
+            fn(CreateUserSupportedKey $createUserSupportedKey): string => $createUserSupportedKey->value,
             self::cases()
         );
 

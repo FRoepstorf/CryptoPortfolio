@@ -12,7 +12,7 @@ class PurchaseService
 {
     public function __construct(
         private readonly LoggerInterface $logger,
-        private readonly AggregateMoneyFormatter $moneyFormatter,
+        private readonly AggregateMoneyFormatter $aggregateMoneyFormatter,
         private readonly PurchaseRepository $purchaseRepository,
         private readonly UserService $userService
     )
@@ -25,7 +25,7 @@ class PurchaseService
             'Starting to process purchase of coin "%s" amount "%s" for "%s" bought by "%s"',
                 $purchase->cryptoCoin->coinName,
                 $purchase->amount->value,
-                $this->moneyFormatter->format($purchase->price->asMoney()),
+                $this->aggregateMoneyFormatter->format($purchase->price->asMoney()),
                 $purchase->user->name
             )
         );

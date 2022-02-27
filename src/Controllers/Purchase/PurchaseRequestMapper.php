@@ -28,6 +28,13 @@ class PurchaseRequestMapper
         );
     }
 
+    private function validateRequest(Request $request): void
+    {
+        /** @psalm-var array<string, non-empty-string> $parsedBody */
+        $parsedBody = $request->getParsedBody();
+        ParsedBodyValidator::ensuresParsedBodyIsArray($parsedBody);
+        ParsedBodyValidator::ensureKeysAreSet($parsedBody, PurchaseSupportedKey::getKeyValues());
+    }
     /**
      * @psalm-param  array<string, non-empty-string> $parsedBody
      * @psalm-suppress ArgumentTypeCoercion
@@ -40,13 +47,5 @@ class PurchaseRequestMapper
         );
 
         return new Price($money);
-    }
-
-    private function validateRequest(Request $request): void
-    {
-        /** @psalm-var array<string, non-empty-string> $parsedBody */
-        $parsedBody = $request->getParsedBody();
-        ParsedBodyValidator::ensuresParsedBodyIsArray($parsedBody);
-        ParsedBodyValidator::ensureKeysAreSet($parsedBody, PurchaseSupportedKey::getKeyValues());
     }
 }

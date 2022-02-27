@@ -20,4 +20,8 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $containerConfigurator->import(SetList::CODE_QUALITY);
     $containerConfigurator->import(SetList::CODING_STYLE);
     $containerConfigurator->import(SetList::DEAD_CODE);
+    $containerConfigurator->import(SetList::NAMING);
+    $containerConfigurator->import(SetList::ORDER);
+    $containerConfigurator->import(SetList::TYPE_DECLARATION_STRICT);
+    $containerConfigurator->import(SetList::EARLY_RETURN);
 };
