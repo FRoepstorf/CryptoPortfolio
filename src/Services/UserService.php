@@ -1,5 +1,4 @@
 <?php
-
 declare(strict_types=1);
 
 namespace Froepstorf\Cryptoportfolio\Services;
@@ -10,9 +9,8 @@ use Froepstorf\Cryptoportfolio\Persistence\User\UserRepository;
 
 class UserService
 {
-    public function __construct(
-        private readonly UserRepository $userRepository
-    ) {
+    public function __construct(private readonly UserRepository $userRepository)
+    {
     }
 
     public function handleNewUser(User $user): void

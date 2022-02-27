@@ -1,5 +1,4 @@
 <?php
-
 declare(strict_types=1);
 
 namespace Froepstorf\Cryptoportfolio\Persistence\User;
@@ -22,7 +21,7 @@ class MongoDbUserReader implements UserReader
     {
         /** @psalm-var array<array-key, string> $result */
         $result = $this->collection->findOne([
-            '_id' => $id,
+            '_id' => $id
         ]);
 
         return $result['_id'];
@@ -30,16 +29,13 @@ class MongoDbUserReader implements UserReader
 
     public function getUserIdFromUser(User $user): UserId
     {
-        /** @psalm-var array<array-key, ObjectId> $result */
-        $result = $this->collection->findOne(
-            [
-                UserCollection::USER_NAME_KEY => $user->name,
-            ],
-            [
-                'projection' => [
-                    UserCollection::USER_NAME_KEY => false,
-                ],
-            ]
+        /** @psalm-var array<array-key, ObjectId>  $result */
+        $result = $this->collection->findOne([
+            UserCollection::USER_NAME_KEY => $user->name
+        ],
+        [
+            'projection' => [UserCollection::USER_NAME_KEY => false]
+        ]
         );
 
         return new MongoUserId($result['_id']);

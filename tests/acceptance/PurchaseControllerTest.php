@@ -1,5 +1,4 @@
 <?php
-
 declare(strict_types=1);
 
 namespace Froepstorf\AcceptanceTest;
@@ -12,9 +11,10 @@ use Froepstorf\Cryptoportfolio\Domain\SupportedCurrencies;
 use PHPUnit\Framework\TestCase;
 use Slim\Psr7\Factory\ServerRequestFactory;
 
+/** @covers \Froepstorf\Cryptoportfolio\Controllers\Purchase\PurchaseController */
 class PurchaseControllerTest extends TestCase
 {
-    private readonly DatabaseTestCaseSetup $databaseTestCaseSetup;
+    private DatabaseTestCaseSetup $databaseTestCaseSetup;
 
     public function __construct(?string $name = null, array $data = [], $dataName = '')
     {
@@ -30,18 +30,19 @@ class PurchaseControllerTest extends TestCase
     public function testCanRegisterPurchase(): void
     {
         $this->databaseTestCaseSetup->seedUserCollection();
-        $serverRequestFactory = new ServerRequestFactory();
-        $request = $serverRequestFactory->createServerRequest('POST', '/purchase', []);
+        $requestBuilder = new ServerRequestFactory();
+        $request = $requestBuilder->createServerRequest('POST', '/purchase', [
+
+        ]);
         $payload = [
             'coinName' => 'AXS',
             'amount' => 20.5,
             'price' => '50000',
             'currency' => SupportedCurrencies::USD->value,
-            'userName' => 'test1',
+            'userName' => 'test1'
         ];
         $jsonPayload = json_encode($payload, JSON_THROW_ON_ERROR);
-        $request->getBody()
-            ->write($jsonPayload);
+        $request->getBody()->write($jsonPayload);
         $request = $request->withHeader('Content-Type', 'application/json');
 
         $app = AppBuilder::build(new ContainerBuilder());

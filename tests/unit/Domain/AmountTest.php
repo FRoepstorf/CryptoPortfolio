@@ -1,5 +1,4 @@
 <?php
-
 declare(strict_types=1);
 
 namespace Froepstorf\UnitTest\Domain;
@@ -7,11 +6,9 @@ namespace Froepstorf\UnitTest\Domain;
 use Froepstorf\Cryptoportfolio\Domain\Amount;
 use PHPUnit\Framework\TestCase;
 
+/** @covers \Froepstorf\Cryptoportfolio\Domain\Amount */
 class AmountTest extends TestCase
 {
-    /**
-     * @var float
-     */
     private const AMOUNT = 3.5;
 
     public function testCanGetAmountAsFloat(): void

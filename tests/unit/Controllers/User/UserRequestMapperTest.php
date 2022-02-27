@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 namespace Froepstorf\UnitTest\Controllers\User;
 
 use Froepstorf\Cryptoportfolio\Controllers\User\CreateUserSupportedKey;
@@ -13,11 +11,9 @@ use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Slim\Psr7\Request;
 
+/** @covers \Froepstorf\Cryptoportfolio\Controllers\User\UserRequestMapper */
 class UserRequestMapperTest extends TestCase
 {
-    /**
-     * @var string
-     */
     private const USER_NAME = 'user';
 
     private Request|MockObject $requestMock;
@@ -35,7 +31,7 @@ class UserRequestMapperTest extends TestCase
     {
         $this->requestMock->method('getParsedBody')
             ->willReturn([
-                CreateUserSupportedKey::USER_NAME->value => self::USER_NAME,
+                CreateUserSupportedKey::USER_NAME->value => self::USER_NAME
             ]);
 
         $this->assertInstanceOf(User::class, $this->userRequestMapper->mapCreateUserRequest($this->requestMock));

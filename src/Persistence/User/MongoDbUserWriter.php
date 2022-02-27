@@ -1,5 +1,4 @@
 <?php
-
 declare(strict_types=1);
 
 namespace Froepstorf\Cryptoportfolio\Persistence\User;
@@ -22,9 +21,8 @@ class MongoDbUserWriter implements UserWriter
     public function store(User $user): void
     {
         try {
-            $this->collection->insertOne([
-                UserCollection::USER_NAME_KEY => $user->name,
-            ]);
+            $this->collection->insertOne([UserCollection::USER_NAME_KEY => $user->name]);
+
         } catch (BulkWriteException $bulkWriteException) {
             $bulkWriteException->getCode() === 11000 ?: throw new UserAlreadyExistsException();
 

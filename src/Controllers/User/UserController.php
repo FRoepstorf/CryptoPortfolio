@@ -1,5 +1,4 @@
 <?php
-
 declare(strict_types=1);
 
 namespace Froepstorf\Cryptoportfolio\Controllers\User;
@@ -17,7 +16,8 @@ class UserController extends AbstractController
         LoggerInterface $logger,
         private readonly UserService $userService,
         private readonly UserRequestMapper $userRequestMapper
-    ) {
+    )
+    {
         parent::__construct($logger);
     }
 

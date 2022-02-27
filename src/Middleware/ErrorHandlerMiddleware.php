@@ -1,5 +1,4 @@
 <?php
-
 declare(strict_types=1);
 
 namespace Froepstorf\Cryptoportfolio\Middleware;
@@ -27,9 +26,8 @@ class ErrorHandlerMiddleware implements MiddlewareInterface
     }
 
     public function process(
-        ServerRequestInterface  $request,
-        RequestHandlerInterface $handler
-    ): ResponseInterface {
+        ServerRequestInterface  $request, RequestHandlerInterface $handler): ResponseInterface
+    {
         try {
             return $handler->handle($request);
         } catch (Throwable $throwable) {

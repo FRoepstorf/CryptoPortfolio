@@ -1,5 +1,4 @@
 <?php
-
 declare(strict_types=1);
 
 namespace Froepstorf\Cryptoportfolio\Controllers\User;
@@ -14,7 +13,7 @@ enum CreateUserSupportedKey: string implements HasValidatableBodyKeys
     public static function getKeyValues(): ValidatableBodyKeys
     {
         $arrayKeys = array_map(
-            fn (CreateUserSupportedKey $createUserSupportedKey): string => $createUserSupportedKey->value,
+            fn(CreateUserSupportedKey $createUserSupportedKey): string => $createUserSupportedKey->value,
             self::cases()
         );
 
