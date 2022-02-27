@@ -27,11 +27,11 @@ class ErrorHandlerMiddleware implements MiddlewareInterface
     }
 
     public function process(
-        ServerRequestInterface $serverRequest,
-        RequestHandlerInterface $requestHandler
+        ServerRequestInterface  $request,
+        RequestHandlerInterface $handler
     ): ResponseInterface {
         try {
-            return $requestHandler->handle($serverRequest);
+            return $handler->handle($request);
         } catch (Throwable $throwable) {
             $this->logger->error(
                 sprintf('Exception "%s" was thrown with message "%s"', $throwable::class, $throwable->getMessage())

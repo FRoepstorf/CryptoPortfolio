@@ -40,12 +40,12 @@ class MongoDbUserReaderTest extends TestCase
         $this->collection->expects($this->once())
             ->method('findOne')
             ->with([
-                    self::USER_NAME_KEY => $user->name,
-                ], [
-                    'projection' => [
-                        self::USER_NAME_KEY => false,
-                    ],
-                ])
+                self::USER_NAME_KEY => $user->name,
+            ], [
+                'projection' => [
+                    self::USER_NAME_KEY => false,
+                ],
+            ])
             ->willReturn([
                 '_id' => new ObjectId(self::MONGO_USER_ID),
             ]);
