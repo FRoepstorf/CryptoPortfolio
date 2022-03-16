@@ -8,9 +8,7 @@ use Froepstorf\Cryptoportfolio\Domain\Coins\CryptoCoin;
 
 class CryptoCoinProvider
 {
-    /**
-     * @var string
-     */
+    /** @var string */
     public final const COIN_NAME = 'AXS';
 
     public static function build(string $name = self::COIN_NAME): CryptoCoin

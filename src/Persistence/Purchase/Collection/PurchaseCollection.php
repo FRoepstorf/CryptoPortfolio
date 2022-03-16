@@ -8,29 +8,19 @@ use MongoDB\Collection;
 
 class PurchaseCollection
 {
-    /**
-     * @var string
-     */
+    /** @var string */
     public final const COIN_NAME_KEY = 'coinName';
 
-    /**
-     * @var string
-     */
+    /** @var string */
     public final const AMOUNT_KEY = 'amount';
 
-    /**
-     * @var string
-     */
+    /** @var string */
     public final const PRICE_KEY = 'price';
 
-    /**
-     * @var string
-     */
+    /** @var string */
     public final const CURRENCY_KEY = 'currency';
 
-    /**
-     * @var string
-     */
+    /** @var string */
     public final const USER_ID_KEY = 'userId';
 
     public function __construct(

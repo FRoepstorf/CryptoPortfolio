@@ -10,14 +10,10 @@ use PHPUnit\Framework\TestCase;
 /** @covers \Froepstorf\Cryptoportfolio\Controllers\Validators\ValidatableBodyKeys */
 class ValidatableBodyKeysTest extends TestCase
 {
-    /**
-     * @var string
-     */
+    /** @var string */
     private const KEY_1 = 'key1';
 
-    /**
-     * @var string
-     */
+    /** @var string */
     private const KEY_2 = 'key2';
 
     public function testCanGetKeys(): void

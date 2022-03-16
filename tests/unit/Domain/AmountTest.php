@@ -10,9 +10,7 @@ use PHPUnit\Framework\TestCase;
 /** @covers \Froepstorf\Cryptoportfolio\Domain\Amount */
 class AmountTest extends TestCase
 {
-    /**
-     * @var float
-     */
+    /** @var float */
     private const AMOUNT = 3.5;
 
     public function testCanGetAmountAsFloat(): void

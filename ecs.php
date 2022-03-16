@@ -5,6 +5,7 @@ declare(strict_types=1);
 use PhpCsFixer\Fixer\FunctionNotation\FunctionTypehintSpaceFixer;
 use PhpCsFixer\Fixer\Phpdoc\GeneralPhpdocAnnotationRemoveFixer;
 use PhpCsFixer\Fixer\Phpdoc\NoSuperfluousPhpdocTagsFixer;
+use PhpCsFixer\Fixer\Phpdoc\PhpdocLineSpanFixer;
 use PhpCsFixer\Fixer\Phpdoc\PhpdocTypesFixer;
 use PhpCsFixer\Fixer\PhpUnit\PhpUnitStrictFixer;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
@@ -48,6 +49,13 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $containerConfigurator->import(SetList::SYMPLIFY);
     $containerConfigurator->import(SetList::COMMON);
     $containerConfigurator->import(SetList::CLEAN_CODE);
-
     $parameters->set(Option::LINE_ENDING, "\n");
+
+    $services = $containerConfigurator->services();
+
+    $services->set(PhpdocLineSpanFixer::class)
+        ->call('configure', [[
+            'property' => 'single',
+            'const' => 'single',
+        ]]);
 };

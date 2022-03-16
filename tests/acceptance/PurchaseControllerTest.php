@@ -17,8 +17,7 @@ class PurchaseControllerTest extends TestCase
 {
     private readonly DatabaseTestCaseSetup $databaseTestCaseSetup;
 
-    public function __construct(?string $name = null, array $data = [], $dataName = '')
-    {
+    public function __construct(?string $name = null, array $data = [], $dataName = '') {
         parent::__construct($name, $data, $dataName);
         $this->databaseTestCaseSetup = new DatabaseTestCaseSetup();
     }

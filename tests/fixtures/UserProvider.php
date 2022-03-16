@@ -8,9 +8,7 @@ use Froepstorf\Cryptoportfolio\Domain\User;
 
 class UserProvider
 {
-    /**
-     * @var string
-     */
+    /** @var string */
     public final const USER_NAME = 'test1';
 
     public static function build(string $userName = self::USER_NAME): User

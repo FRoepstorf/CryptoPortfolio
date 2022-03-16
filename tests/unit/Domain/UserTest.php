@@ -10,9 +10,7 @@ use PHPUnit\Framework\TestCase;
 /** @covers \Froepstorf\Cryptoportfolio\Domain\User */
 class UserTest extends TestCase
 {
-    /**
-     * @var string
-     */
+    /** @var string */
     private const USER_NAME = 'user';
 
     public function testCanGetUserName(): void

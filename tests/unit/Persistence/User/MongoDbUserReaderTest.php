@@ -15,14 +15,10 @@ use PHPUnit\Framework\TestCase;
 /** @covers \Froepstorf\Cryptoportfolio\Persistence\Purchase\MongoDbPurchaseReader */
 class MongoDbUserReaderTest extends TestCase
 {
-    /**
-     * @var string
-     */
+    /** @var string */
     private const USER_NAME_KEY = 'userName';
 
-    /**
-     * @var string
-     */
+    /** @var string */
     private const MONGO_USER_ID = '6219d0912811c72f6029aad2';
 
     private Collection|MockObject $collection;

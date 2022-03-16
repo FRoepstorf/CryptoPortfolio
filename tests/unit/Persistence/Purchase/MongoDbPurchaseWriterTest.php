@@ -15,9 +15,7 @@ use PHPUnit\Framework\TestCase;
 /** @covers \Froepstorf\Cryptoportfolio\Persistence\Purchase\MongoDbPurchaseWriter */
 class MongoDbPurchaseWriterTest extends TestCase
 {
-    /**
-     * @var string
-     */
+    /** @var string */
     private const USER_ID = '1234';
 
     private Collection|MockObject $collectionMock;

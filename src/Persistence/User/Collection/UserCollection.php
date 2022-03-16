@@ -8,9 +8,7 @@ use MongoDB\Collection;
 
 class UserCollection
 {
-    /**
-     * @var string
-     */
+    /** @var string */
     public final const USER_NAME_KEY = 'userName';
 
     public function __construct(

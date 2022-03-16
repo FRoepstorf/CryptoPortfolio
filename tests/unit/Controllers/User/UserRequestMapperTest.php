@@ -16,9 +16,7 @@ use Slim\Psr7\Request;
 /** @covers \Froepstorf\Cryptoportfolio\Controllers\User\UserRequestMapper */
 class UserRequestMapperTest extends TestCase
 {
-    /**
-     * @var string
-     */
+    /** @var string */
     private const USER_NAME = 'user';
 
     private Request|MockObject $requestMock;

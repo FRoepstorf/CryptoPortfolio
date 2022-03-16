@@ -8,9 +8,7 @@ use Froepstorf\Cryptoportfolio\Domain\Amount;
 
 class AmountProvider
 {
-    /**
-     * @var float
-     */
+    /** @var float */
     public final const AMOUNT = 20.5;
 
     public static function build(float $value = self::AMOUNT): Amount

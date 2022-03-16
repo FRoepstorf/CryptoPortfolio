@@ -11,24 +11,16 @@ use PHPUnit\Framework\TestCase;
 /** @covers \Froepstorf\Cryptoportfolio\Controllers\Purchase\PurchaseSupportedKey */
 class PurchaseSupportedKeyTest extends TestCase
 {
-    /**
-     * @var string
-     */
+    /** @var string */
     private const COIN_NAME_KEY = 'coinName';
 
-    /**
-     * @var string
-     */
+    /** @var string */
     private const AMOUNT_KEY = 'amount';
 
-    /**
-     * @var string
-     */
+    /** @var string */
     private const PRICE_KEY = 'price';
 
-    /**
-     * @var string
-     */
+    /** @var string */
     private const CURRENCY_KEY = 'currency';
 
     public function testCanGetCorrectCoinNameKey(): void
