@@ -1,31 +1,36 @@
-up:
+DOCKER_COMPOSE_RUN_XDEBUG_OFF=docker-compose run --rm -e XDEBUG_MODE=off
+
+up: vendor
 	docker-compose up -d
 
 stop:
 	docker-compose stop
 
+vendor: composer.json composer.lock
+	$(DOCKER_COMPOSE_RUN_XDEBUG_OFF) php composer install
+
 shell:
-	docker-compose run --rm php bash
+	$(DOCKER_COMPOSE_RUN_XDEBUG_OFF) php bash
 
 psalm:
-	docker-compose run --rm php ./vendor/bin/psalm
+	$(DOCKER_COMPOSE_RUN_XDEBUG_OFF) php ./vendor/bin/psalm
 
-test:
-	docker-compose run --rm -e XDEBUG_MODE=off php vendor/bin/phpunit --testsuite unit
+test: vendor
+	$(DOCKER_COMPOSE_RUN_XDEBUG_OFF) -e XDEBUG_MODE=off php vendor/bin/phpunit --testsuite unit
 
-coverage:
+coverage: vendor
 	docker-compose run --rm -e XDEBUG_MODE=coverage php vendor/bin/phpunit --testsuite all --coverage-html var/coverage
 
 logs:
 	docker-compose logs -f php
 
 seed:
-	docker-compose run --rm php php ./bin/seed.php
+	$(DOCKER_COMPOSE_RUN_XDEBUG_OFF) php php ./bin/seed.php
 
 rector:
-	docker-compose run --rm -e XDEBUG_MODE=off php ./vendor/bin/rector process src tests
+	$(DOCKER_COMPOSE_RUN_XDEBUG_OFF) php ./vendor/bin/rector process src tests
 
 csfix:
-	docker-compose run --rm -e XDEBUG_MODE=off php ./vendor/bin/ecs check src tests --fix
+	$(DOCKER_COMPOSE_RUN_XDEBUG_OFF) php ./vendor/bin/ecs check src tests --fix
 
-precommit: rector csfix psalm test
+precommit: vendor rector csfix psalm test
