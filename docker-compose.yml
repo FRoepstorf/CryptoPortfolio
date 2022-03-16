@@ -17,10 +17,14 @@ services:
       context: .
       target: dev
     volumes:
-      - .:/var/task
-      - ./docker/php/xdebug.ini:/opt/bref/etc/php/conf.d/xdebug.ini
+      - .:/var/task:rw
     env_file:
       - .env
+    environment:
+      - XDEBUG_CONFIG=client_host=host.docker.internal
+      - PHP_IDE_CONFIG=serverName=Docker
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
 
   mongodb:
     image: mongo:5.0
