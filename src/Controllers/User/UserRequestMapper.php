@@ -17,6 +17,6 @@ class UserRequestMapper
         ParsedBodyValidator::ensuresParsedBodyIsArray($parsedBody);
         ParsedBodyValidator::ensureKeysAreSet($parsedBody, CreateUserSupportedKey::getKeyValues());
 
-        return new User($parsedBody['userName']);
+        return new User($parsedBody[CreateUserSupportedKey::USER_NAME->value]);
     }
 }
