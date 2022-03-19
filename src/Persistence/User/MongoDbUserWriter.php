@@ -12,6 +12,9 @@ use MongoDB\Driver\Exception\BulkWriteException;
 
 class MongoDbUserWriter implements UserWriter
 {
+    /** @var int */
+    private const DUPLICATE_EXCEPTION_CODE = 11000;
+
     private readonly Collection $collection;
 
     public function __construct(UserCollection $userCollection)
@@ -26,7 +29,9 @@ class MongoDbUserWriter implements UserWriter
                 UserCollection::USER_NAME_KEY => $user->name,
             ]);
         } catch (BulkWriteException $bulkWriteException) {
-            $bulkWriteException->getCode() === 11000 ?: throw new UserAlreadyExistsException();
+            if ($bulkWriteException->getCode() === self::DUPLICATE_EXCEPTION_CODE) {
+                throw new UserAlreadyExistsException();
+            }
 
             throw $bulkWriteException;
         }

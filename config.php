@@ -119,6 +119,8 @@ return [
 
     ErrorHandlerMiddleware::class => create()->constructor(get(ClientInterface::class), get(Scope::class), get(LoggerInterface::class)),
 
+    SentryDsn::class => create()->constructor(env('SENTRY_DSN')),
+
     ClientInterface::class => function(AppEnvironment $appEnvironment, SentryDsn $sentryDsn): ClientInterface{
         $optionsBuilder = new SentryClientOptionsBuilder(
             $sentryDsn,

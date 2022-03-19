@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Froepstorf\Cryptoportfolio\Controllers\Purchase;
 
+use Fig\Http\Message\StatusCodeInterface;
 use Froepstorf\Cryptoportfolio\Controllers\AbstractController;
 use Froepstorf\Cryptoportfolio\Services\PurchaseService;
 use Psr\Http\Message\ResponseInterface;
@@ -27,6 +28,6 @@ class PurchaseController extends AbstractController
 
         $this->purchaseService->processPurchase($purchase);
 
-        return $response;
+        return $response->withStatus(StatusCodeInterface::STATUS_CREATED);
     }
 }

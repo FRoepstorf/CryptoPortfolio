@@ -16,9 +16,9 @@ use Sentry\Transport\TransportFactoryInterface;
 use Sentry\Transport\TransportInterface;
 
 return [
-    ClientInterface::class => function(AppEnvironment $appEnvironment): ClientInterface {
+    ClientInterface::class => function(AppEnvironment $appEnvironment, SentryDsn $sentryDsn): ClientInterface {
         $optionsBuilder = new SentryClientOptionsBuilder(
-            EnvironmentReader::getSentryDsn(),
+            $sentryDsn,
             $appEnvironment
         );
         $transportFactory = new class implements TransportFactoryInterface {

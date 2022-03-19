@@ -8,16 +8,15 @@ use Fig\Http\Message\StatusCodeInterface;
 use Froepstorf\AcceptanceTest\helper\DatabaseTestCaseSetup;
 use Froepstorf\Cryptoportfolio\AppBuilder;
 use Froepstorf\Cryptoportfolio\ContainerBuilder;
-use Froepstorf\Cryptoportfolio\Domain\SupportedCurrencies;
 use PHPUnit\Framework\TestCase;
 use Slim\App;
 use Slim\Psr7\Factory\ServerRequestFactory;
 
 /**
- * @covers \Froepstorf\Cryptoportfolio\Controllers\Purchase\PurchaseController
+ * @covers \Froepstorf\Cryptoportfolio\Controllers\User\UserController
  * @covers \Froepstorf\Cryptoportfolio\Controllers\AbstractController
  */
-class PurchaseControllerTest extends TestCase
+class UserControllerTest extends TestCase
 {
     private readonly DatabaseTestCaseSetup $databaseTestCaseSetup;
 
@@ -37,16 +36,10 @@ class PurchaseControllerTest extends TestCase
         $this->serverRequestFactory = new ServerRequestFactory();
     }
 
-    public function testCanRegisterPurchase(): void
+    public function testCanCreateNewUser(): void
     {
-        $this->databaseTestCaseSetup->seedUserCollection();
-
-        $request = $this->serverRequestFactory->createServerRequest('POST', '/purchase', []);
+        $request = $this->serverRequestFactory->createServerRequest('POST', '/user', []);
         $payload = [
-            'coinName' => 'AXS',
-            'amount' => 20.5,
-            'price' => '50000',
-            'currency' => SupportedCurrencies::USD->value,
             'userName' => 'test1',
         ];
         $jsonPayload = json_encode($payload, JSON_THROW_ON_ERROR);

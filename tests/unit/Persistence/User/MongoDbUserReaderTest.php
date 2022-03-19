@@ -12,7 +12,7 @@ use MongoDB\Collection;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
-/** @covers \Froepstorf\Cryptoportfolio\Persistence\Purchase\MongoDbPurchaseReader */
+/** @covers \Froepstorf\Cryptoportfolio\Persistence\User\MongoDbUserReader */
 class MongoDbUserReaderTest extends TestCase
 {
     /** @var string */
