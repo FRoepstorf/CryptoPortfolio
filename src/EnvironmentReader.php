@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Froepstorf\Cryptoportfolio;
 
+use Froepstorf\Cryptoportfolio\ErrorHandling\SentryDsn;
 use Froepstorf\Cryptoportfolio\Exception\EnvironmentVariableNotFoundException;
 
 class EnvironmentReader
@@ -13,19 +14,9 @@ class EnvironmentReader
         return AppEnvironment::from(self::readFromEnvironment('APP_ENVIRONMENT'));
     }
 
-    public static function getMongoDsn(): string
+    public static function getSentryDsn(): SentryDsn
     {
-        return self::readFromEnvironment('MONGO_DSN');
-    }
-
-    public static function getSentryDsn(): string
-    {
-        return self::readFromEnvironment('SENTRY_DSN');
-    }
-
-    public static function getMongoDatabaseName(): string
-    {
-        return self::readFromEnvironment('MONGO_DATABASE_NAME');
+        return new SentryDsn(self::readFromEnvironment('SENTRY_DSN'));
     }
 
     private static function readFromEnvironment(string $key): string

@@ -19,7 +19,7 @@ test: vendor
 	$(DOCKER_COMPOSE_RUN_XDEBUG_OFF) -e XDEBUG_MODE=off php vendor/bin/phpunit --testsuite unit
 
 coverage: vendor
-	docker-compose run --rm -e XDEBUG_MODE=coverage php vendor/bin/phpunit --testsuite all --coverage-html var/coverage
+	docker-compose run --rm -e XDEBUG_MODE=coverage,debug php vendor/bin/phpunit --testsuite all --coverage-html var/coverage
 
 logs:
 	docker-compose logs -f php

@@ -16,13 +16,9 @@ use Sentry\Transport\TransportFactoryInterface;
 use Sentry\Transport\TransportInterface;
 
 return [
-    LoggerInterface::class => function(): LoggerInterface {
-        return new NullLogger();
-    },
-
     ClientInterface::class => function(AppEnvironment $appEnvironment): ClientInterface {
         $optionsBuilder = new SentryClientOptionsBuilder(
-            new SentryDsn(EnvironmentReader::getSentryDsn()),
+            EnvironmentReader::getSentryDsn(),
             $appEnvironment
         );
         $transportFactory = new class implements TransportFactoryInterface {

@@ -8,6 +8,8 @@ use Froepstorf\Cryptoportfolio\EnvironmentReader;
 use Froepstorf\Cryptoportfolio\ErrorHandling\SentryClientOptionsBuilder;
 use Froepstorf\Cryptoportfolio\ErrorHandling\SentryDsn;
 use Froepstorf\Cryptoportfolio\Middleware\ErrorHandlerMiddleware;
+use Froepstorf\Cryptoportfolio\Persistence\Mongo\MongoDatabaseName;
+use Froepstorf\Cryptoportfolio\Persistence\Mongo\MongoDsn;
 use Froepstorf\Cryptoportfolio\Persistence\Purchase\Collection\PurchaseCollection;
 use Froepstorf\Cryptoportfolio\Persistence\Purchase\MongoDbPurchaseReader;
 use Froepstorf\Cryptoportfolio\Persistence\Purchase\MongoDbPurchaseWriter;
@@ -36,6 +38,8 @@ use Sentry\SentrySdk;
 use Sentry\State\Hub;
 use Sentry\State\Scope;
 use function DI\create;
+use function DI\env;
+use function DI\get;
 
 return [
     AppEnvironment::class => function (): AppEnvironment {
@@ -49,12 +53,16 @@ return [
         return $logger;
     },
 
-    Client::class => function (): Client {
-        return new Client(EnvironmentReader::getMongoDsn());
+    MongoDsn::class => create()->constructor(env('MONGO_DSN')),
+
+    Client::class => function (MongoDsn $mongoDsn): Client {
+        return new Client($mongoDsn->value);
     },
 
-    PurchaseCollection::class => function(Client $mongoClient): PurchaseCollection {
-        $collection = $mongoClient->selectCollection(EnvironmentReader::getMongoDatabaseName(), 'purchases');
+    MongoDatabaseName::class => create()->constructor(env('MONGO_DATABASE_NAME')),
+
+    PurchaseCollection::class => function(Client $mongoClient, MongoDatabaseName $mongoDatabaseName): PurchaseCollection {
+        $collection = $mongoClient->selectCollection($mongoDatabaseName->value, 'purchases');
 
         return new PurchaseCollection($collection);
     },
@@ -67,14 +75,12 @@ return [
         return new MongoDbPurchaseWriter($purchaseCollection);
     },
 
-    PurchaseService::class => function (
-        LoggerInterface $logger,
-        AggregateMoneyFormatter $moneyFormatter,
-        PurchaseRepository $purchaseRepository,
-        UserService $userService
-    ): PurchaseService {
-        return new PurchaseService($logger, $moneyFormatter, $purchaseRepository, $userService);
-    },
+    PurchaseService::class => create()->constructor(
+        get(LoggerInterface::class),
+        get(AggregateMoneyFormatter::class),
+        get(PurchaseRepository::class),
+        get(UserService::class)
+    ),
 
     NumberFormatter::class => function(): NumberFormatter {
         return new NumberFormatter('de_DE', NumberFormatter::CURRENCY);
@@ -91,8 +97,8 @@ return [
         ]);
     },
 
-    UserCollection::class => function(Client $mongoClient): UserCollection {
-        $collection = $mongoClient->selectCollection(EnvironmentReader::getMongoDatabaseName(), 'users');
+    UserCollection::class => function(Client $mongoClient, MongoDatabaseName $mongoDatabaseName): UserCollection {
+        $collection = $mongoClient->selectCollection($mongoDatabaseName->value, 'users');
 
         return new UserCollection($collection);
     },
@@ -105,27 +111,17 @@ return [
         return new MongoDbUserWriter($userCollection);
     },
 
-    UserRepository::class => function(UserReader $userReader, UserWriter $userWriter): UserRepository {
-        return new UserRepository($userReader, $userWriter);
-    },
+    UserRepository::class => create()->constructor(get(UserReader::class), get(UserWriter::class)),
 
-    UserService::class => function(UserRepository $userRepository): UserService {
-        return new UserService($userRepository);
-    },
+    UserService::class => create()->constructor(get(UserRepository::class)),
 
     Scope::class => create(Scope::class),
 
-    ErrorHandlerMiddleware::class => function(
-        ClientInterface $client,
-        Scope $scope,
-        LoggerInterface $logger
-    ): ErrorHandlerMiddleware {
-        return new ErrorHandlerMiddleware($client, $scope, $logger);
-    },
+    ErrorHandlerMiddleware::class => create()->constructor(get(ClientInterface::class), get(Scope::class), get(LoggerInterface::class)),
 
-    ClientInterface::class => function(AppEnvironment $appEnvironment): ClientInterface{
+    ClientInterface::class => function(AppEnvironment $appEnvironment, SentryDsn $sentryDsn): ClientInterface{
         $optionsBuilder = new SentryClientOptionsBuilder(
-            new SentryDsn(EnvironmentReader::getSentryDsn()),
+            $sentryDsn,
             $appEnvironment
         );
 

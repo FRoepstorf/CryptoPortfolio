@@ -61,7 +61,7 @@ class SentryClientOptionsBuilderTest extends TestCase
 
         $actualOptions = $this->sentryClientOptionsBuilder->build();
         $expectedOptions = new Options([
-            self::DSN_KEY => null,
+            self::DSN_KEY => 'https://public@sentry.example.com/1',
             self::ENVIRONMENT_KEY => $appEnvironment->value,
             self::ATTACH_STACK_TRACE_KEY => true,
             self::DEFAULT_INTEGRATIONS_KEY => true,

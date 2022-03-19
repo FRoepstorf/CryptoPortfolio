@@ -22,7 +22,7 @@
     </testsuites>
     <php>
         <env name="APP_ENVIRONMENT" value="test" force="true"/>
-        <env name="SENTRY_DSN" value="StubbedDsn" force="true"/>
+        <env name="SENTRY_DSN" value="https://public@sentry.example.com/1" force="true"/>
         <env name="MONGO_DSN" value="mongodb://root:root@mongodb:27017" force="true"/>
         <env name="MONGO_DATABASE_NAME" value="test" force="true"/>
     </php>

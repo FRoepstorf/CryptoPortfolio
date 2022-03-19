@@ -28,7 +28,7 @@ final class SentryClientOptionsBuilder
         private readonly AppEnvironment $appEnvironment
     ) {
         $this->options = [
-            self::DSN_KEY => $this->appEnvironment->isTestOrDev() ? null : $this->sentryDsn->value,
+            self::DSN_KEY => $this->sentryDsn->value,
             self::ENVIRONMENT_KEY => $this->appEnvironment->value,
             self::ATTACH_STACK_TRACE_KEY => true,
             self::DEFAULT_INTEGRATIONS_KEY => true,
